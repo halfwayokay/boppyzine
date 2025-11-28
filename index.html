@@ -1,11 +1,269 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Hello, Bingo Dawg!</h1>
-    <p>Your website is alive.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SITE TITLE HERE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --card-bg: #ffffff;
+      --text: #222222;
+      --muted: #666666;
+      --border: #dddddd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .header-image {
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto 1.5rem;
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2rem;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .intro {
+      margin: 1.5rem 0 2rem;
+      text-align: center;
+      color: var(--text);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .product-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .product-title {
+      margin: 0 0 0.25rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .product-desc {
+      margin: 0 0 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      flex-grow: 1;
+    }
+
+    .price {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .buy-form {
+      margin-top: auto;
+    }
+
+    .buy-button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: #ffc439; /* PayPal-ish yellow, change if you like */
+      color: #111;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .small-note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      text-align: center;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- HEADER IMAGE: upload a file named header.jpg and it will show up here -->
+    <img src="header.jpg" alt="Header artwork" class="header-image" />
+    <h1>SITE TITLE HERE</h1>
+    <p class="subtitle">Short tagline or vibe sentence goes here.</p>
+  </header>
+
+  <section class="intro">
+    <p>
+      Replace this text with a quick intro about who you are and what you’re selling.
+      Mention sticker sheets, BOPPY sizes, zines, whatever makes sense for you.
+    </p>
+  </section>
+
+  <main>
+    <section>
+      <div class="product-grid">
+        <!-- PRODUCT 1 – Sticker Sheet Vol 1 -->
+        <article class="product-card">
+          <img src="sticker-sheet-vol1.jpg" alt="Sticker Sheet Vol 1 Pack" class="product-image" />
+          <h2 class="product-title">Sticker Sheet Vol 1 Pack</h2>
+          <p class="product-desc">A sheet of weird little guys. Limited run, while supplies last.</p>
+          <div class="price">$8.00</div>
+
+          <!-- PAYPAL BUY NOW FORM -->
+          <!-- Replace YOUR_PAYPAL_EMAIL@example.com with your actual PayPal email or merchant ID -->
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="Sticker Sheet Vol 1 Pack" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="8.00" />
+            <button type="submit" class="buy-button">Buy Sticker Sheet Vol 1 – $8</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 2 – BOPPY Small -->
+        <article class="product-card">
+          <img src="boppy-small.jpg" alt="BOPPY Small" class="product-image" />
+          <h2 class="product-title">BOPPY – Small</h2>
+          <p class="product-desc">Smol BOPPY size. Great for folks who like subtle nonsense.</p>
+          <div class="price">$10.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Small" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="10.00" />
+            <button type="submit" class="buy-button">Buy BOPPY Small – $10</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 3 – BOPPY Medium -->
+        <article class="product-card">
+          <img src="boppy-medium.jpg" alt="BOPPY Medium" class="product-image" />
+          <h2 class="product-title">BOPPY – Medium</h2>
+          <p class="product-desc">Classic BOPPY size. The default experience.</p>
+          <div class="price">$15.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Medium" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="15.00" />
+            <button type="submit" class="buy-button">Buy BOPPY Medium – $15</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 4 – BOPPY Large -->
+        <article class="product-card">
+          <img src="boppy-large.jpg" alt="BOPPY Large" class="product-image" />
+          <h2 class="product-title">BOPPY – Large</h2>
+          <p class="product-desc">Big BOPPY for bold people.</p>
+          <div class="price">$20.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Large" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="20.00" />
+            <button type="submit" class="buy-button">Buy BOPPY Large – $20</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 5 – BOPPY XL -->
+        <article class="product-card">
+          <img src="boppy-xl.jpg" alt="BOPPY XL" class="product-image" />
+          <h2 class="product-title">BOPPY – XL</h2>
+          <p class="product-desc">Full goblin mode. Massive BOPPY energy.</p>
+          <div class="price">$25.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – XL" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="25.00" />
+            <button type="submit" class="buy-button">Buy BOPPY XL – $25</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 6 – BOPPY Mystery / Extra Option -->
+        <article class="product-card">
+          <img src="boppy-mystery.jpg" alt="BOPPY Mystery Pack" class="product-image" />
+          <h2 class="product-title">BOPPY – Mystery Pack</h2>
+          <p class="product-desc">A surprise mix. Could be your new favorite thing, could be a mistake.</p>
+          <div class="price">$18.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Mystery Pack" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="18.00" />
+            <button type="submit" class="buy-button">Buy BOPPY Mystery – $18</button>
+          </form>
+        </article>
+      </div>
+
+      <p class="small-note">
+        All prices and descriptions are placeholders. Edit the text, prices, and image names to match your real products.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> SITE TITLE HERE</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
