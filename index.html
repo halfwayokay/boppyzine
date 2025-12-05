@@ -117,4 +117,154 @@
     .small-note {
       margin-top: 1.5rem;
       font-size: 0.8rem;
-      color: var(--muted)
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      text-align: center;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- HEADER IMAGE: upload a file named boppy_header.png and it will show up here -->
+    <img src="boppy_header.png" alt="Header artwork" class="header-image" />
+    <h1>Buy a BOPPY!</h1>
+    <p class="subtitle">A cool art zine made by halfwayokay’s Bingo!</p>
+  </header>
+
+  <section class="intro">
+    <p>(BOPPY contents are weird, fun, and PG.)</p>
+  </section>
+
+  <main>
+    <section>
+      <div class="product-grid">
+        <!-- PRODUCT 1 – Sizes -->
+        <article class="product-card">
+          <img src="boppy-sizes.png" alt="Sizes" class="product-image" />
+          <h2 class="product-title">BOPPY “Sizes”</h2>
+          <p class="product-desc">
+            Sizes is a cool book about sizes.<br>
+            Includes a random sticker sheet!<br>
+            Free shipping!
+          </p>
+          <div class="price">$4.00</div>
+
+          <!-- PAYPAL BUY NOW FORM -->
+          <!-- Replace YOUR_PAYPAL_EMAIL@example.com with your actual PayPal email or merchant ID -->
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Sizes" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="4.00" />
+            <button type="submit" class="buy-button">Buy Sizes – $4</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 2 – Grocery Store -->
+        <article class="product-card">
+          <img src="boppy-grocery-storey.png" alt="Grocery Store" class="product-image" />
+          <h2 class="product-title">BOPPY “Grocery Store”</h2>
+          <p class="product-desc">
+            All you ever needed to know about the grocery store!<br>
+            Includes a random sticker sheet!<br>
+            Free shipping!
+          </p>
+          <div class="price">$4.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Grocery Store" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="4.00" />
+            <button type="submit" class="buy-button">Buy Grocery Store – $4</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 3 – Private Time -->
+        <article class="product-card">
+          <img src="boppy-private-time.png" alt="Private Time" class="product-image" />
+          <h2 class="product-title">BOPPY “Private Time”</h2>
+          <p class="product-desc">
+            We all need some time to chill solo style!<br>
+            Includes a random sticker sheet!<br>
+            Free shipping!
+          </p>
+          <div class="price">$4.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Private Time" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="4.00" />
+            <button type="submit" class="buy-button">Buy Private Time – $4</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 4 – Beverages -->
+        <article class="product-card">
+          <img src="boppy-bevrages.png" alt="Beverages" class="product-image" />
+          <h2 class="product-title">BOPPY “Beverages”</h2>
+          <p class="product-desc">
+            Finally, a beverage you can read!<br>
+            Includes a random sticker sheet!<br>
+            Free shipping!
+          </p>
+          <div class="price">$4.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="BOPPY – Beverages" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="4.00" />
+            <button type="submit" class="buy-button">Buy Beverages – $4</button>
+          </form>
+        </article>
+
+        <!-- PRODUCT 5 – Sticker Sheet Set Vol 1 -->
+        <article class="product-card">
+          <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Set Vol 1" class="product-image" />
+          <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
+          <p class="product-desc">
+            A complete set of Official BOPPY Sticker Sheets Vol 1.<br>
+            Each one more bodacious than the last!<br>
+            Perfect for the BOPPY Sticker Zone!
+          </p>
+          <div class="price">$6.00</div>
+
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
+            <input type="hidden" name="item_name" value="Sticker Sheet Set Vol 1" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="amount" value="6.00" />
+            <button type="submit" class="buy-button">Buy Sticker Sheet Set Vol 1 – $6</button>
+          </form>
+        </article>
+      </div>
+
+      <p class="small-note">
+        Don’t forget to replace YOUR_PAYPAL_EMAIL@example.com with your actual PayPal email
+        in each button so the money goes to you.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Hi, hello!</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
