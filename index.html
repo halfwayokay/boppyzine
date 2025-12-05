@@ -127,39 +127,44 @@
       text-align: center;
       color: var(--muted);
     }
-.contact-block {
+.contact-banner {
   margin-top: 3rem;
-  padding: 1.5rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--card-bg);
+  padding: 2rem 1rem;
+  background: #444444;
+  color: #ffffff;
   text-align: center;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  width: 100%;
+  border-radius: 0; /* overrides card vibe */
 }
 
 .contact-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.5px;
 }
 
-.contact-block a {
-  color: var(--text);
-  font-weight: 600;
-  text-decoration: none;
+.contact-links {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
 }
 
-.contact-block a:hover {
+.contact-banner a {
+  color: #ffffff;
   text-decoration: underline;
+  font-weight: 600;
+}
+
+.contact-banner a:hover {
+  opacity: 0.85;
 }
 
 .contact-tagline {
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  color: var(--muted);
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
 }
 
     
@@ -307,14 +312,15 @@
     <p class="small-note">
       *Free shipping for U.S. orders. I don't know how international shipping works :(
     </p>
-    <div class="contact-block">
-  <p class="contact-title">Say hi!</p>
-  <p>
-    💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a><br>
+  <div class="contact-banner">
+  <p class="contact-title">Stay in touch!</p>
+  <p class="contact-links">
+    💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a> &nbsp;•&nbsp;
     📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a>
   </p>
-  <p class="contact-tagline">#boppyzine if ya wanna!</p>
+  <p class="contact-tagline">Tag me if you wanna!</p>
 </div>
+
   </section>
 </main>
 
