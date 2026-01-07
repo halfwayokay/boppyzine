@@ -1,336 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>BOPPPPPPPY A Cool Art Zine</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Call-Out Generator</title>
   <style>
-    :root {
-      --bg: #ffffff;
-      --card-bg: #ffffff;
-      --text: #222222;
-      --muted: #666666;
-      --border: #dddddd;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 1.5rem 1rem 3rem;
-      line-height: 1.6;
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .header-image {
-      max-width: 100%;
-      border-radius: 12px;
-      display: block;
-      margin: 0 auto 1.5rem;
-    }
-
-    h1 {
-      margin: 0 0 0.5rem;
-      font-size: 2rem;
-    }
-
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .intro {
-      margin: 1.5rem 0 2rem;
-      text-align: center;
-      color: var(--text);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .product-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    }
-
-    .product-image {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 0.75rem;
-      display: block;
-    }
-
-    .product-title {
-      margin: 0 0 0.25rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .product-desc {
-      margin: 0 0 0.5rem;
-      font-size: 0.9rem;
-      color: var(--muted);
-      flex-grow: 1;
-    }
-
-    .price {
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-    }
-
-    .buy-form {
-      margin-top: auto;
-    }
-
-    .buy-button {
-      border: none;
-      border-radius: 999px;
-      padding: 0.6rem 1rem;
-      font-size: 0.95rem;
-      cursor: pointer;
-      background: #ffc439; /* PayPal-ish yellow, change if you like */
-      color: #111;
-      font-weight: 600;
-      width: 100%;
-    }
-
-    .small-note {
-      margin-top: 1.5rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    footer {
-      margin-top: 3rem;
-      font-size: 0.8rem;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    .contact-banner {
-      margin-top: 3rem;
-      padding: 2rem 1rem;
-      background: #111111;
-      color: #ffffff;
-      text-align: center;
-      width: 100%;
-      border-radius: 0;
-    }
-
-    .contact-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0 0 0.75rem;
-      letter-spacing: 0.5px;
-    }
-
-    .contact-links {
-      font-size: 1.1rem;
-      margin: 0 0 0.75rem;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
     }
-
-    .contact-banner a {
-      color: #ffffff;
-      text-decoration: underline;
-      font-weight: 600;
+    .container {
+      text-align: center;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
     }
-
-    .contact-banner a:hover {
-      opacity: 0.85;
-    }
-
-    .contact-tagline {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      opacity: 0.85;
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <!-- HEADER IMAGE: upload a file named boppy_header.png and it will show up here -->
-    <img src="boppy_header.png" alt="Header artwork" class="header-image" />
-    <h1>Buy a BOPPY!</h1>
-    <p class="subtitle">
-      A cool art zine made by <a href="https://linktr.ee/halfwayokay" target="_blank">halfwayokay</a>'s Bingo!
-    </p>
-  </header>
-
-  <section class="intro">
-    <p>(BOPPY contents are weird, fun, and PG.)</p>
-  </section>
-
-  <main>
-    <section>
-      <div class="product-grid">
-        <!-- PRODUCT 1 – Sizes -->
-        <article class="product-card">
-          <img src="boppy-sizes.png" alt="Sizes" class="product-image" />
-          <h2 class="product-title">BOPPY “Sizes”</h2>
-          <p class="product-desc">
-            Sizes is a cool book about sizes.<br><br>
-            Includes a random sticker sheet!<br><br>
-            Free shipping!*
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
-            <input type="hidden" name="item_name" value="BOPPY – Sizes" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="amount" value="4.00" />
-            <button type="submit" class="buy-button">Buy Sizes – $4</button>
-          </form>
-        </article>
-
-        <!-- PRODUCT 2 – Grocery Store -->
-        <article class="product-card">
-          <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" />
-          <h2 class="product-title">BOPPY “Grocery Store”</h2>
-          <p class="product-desc">
-            All you ever needed to know about the grocery store!<br><br>
-            Includes a random sticker sheet!<br><br>
-            Free shipping!*
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
-            <input type="hidden" name="item_name" value="BOPPY – Grocery Store" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="amount" value="4.00" />
-            <button type="submit" class="buy-button">Buy Grocery Store – $4</button>
-          </form>
-        </article>
-
-        <!-- PRODUCT 3 – Private Time -->
-        <article class="product-card">
-          <img src="boppy-private-time.png" alt="Private Time" class="product-image" />
-          <h2 class="product-title">BOPPY “Private Time”</h2>
-          <p class="product-desc">
-            We all need some time to chill solo style!<br><br>
-            Includes a random sticker sheet!<br><br>
-            Free shipping!*
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
-            <input type="hidden" name="item_name" value="BOPPY – Private Time" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="amount" value="4.00" />
-            <button type="submit" class="buy-button">Buy Private Time – $4</button>
-          </form>
-        </article>
-
-        <!-- PRODUCT 4 – Beverages -->
-        <article class="product-card">
-          <img src="boppy-beverages.png" alt="Beverages" class="product-image" />
-          <h2 class="product-title">BOPPY “Beverages”</h2>
-          <p class="product-desc">
-            Finally, a beverage you can read!<br><br>
-            Includes a random sticker sheet!<br><br>
-            Free shipping!*
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
-            <input type="hidden" name="item_name" value="BOPPY – Beverages" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="amount" value="4.00" />
-            <button type="submit" class="buy-button">Buy Beverages – $4</button>
-          </form>
-        </article>
-
-        <!-- PRODUCT 5 – Sticker Sheet Set Vol 1 -->
-        <article class="product-card">
-          <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Set Vol 1" class="product-image" />
-          <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
-          <p class="product-desc">
-            A complete set of Official BOPPY Sticker Sheets Vol 1.<br><br>
-            Each one more bodacious than the last!<br><br>
-            Perfect for the BOPPY Sticker Zone!<br><br>
-            Free shipping!*
-          </p>
-          <div class="price">$7.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
-            <input type="hidden" name="item_name" value="Sticker Sheet Set Vol 1" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="amount" value="7.00" />
-            <button type="submit" class="buy-button">Buy Sticker Sheet Set Vol 1 – $7</button>
-          </form>
-        </article>
-
-        <!-- PRODUCT 6 – BOPPY: ALL OF IT -->
-        <article class="product-card">
-          <img src="boppy-all-of-it.png" alt="BOPPY: ALL OF IT" class="product-image" />
-          <h2 class="product-title">BOPPY: ALL OF IT</h2>
-          <p class="product-desc">
-            One of each BOPPY and Official BOPPY Sticker Sheet.<br><br>
-            Good value!<br><br>
-            Free shipping!*
-          </p>
-          <div class="price">$20.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-            <input type="hidden" name="cmd" value="_xclick" />
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL@example.com" />
-            <input type="hidden" name="item_name" value="BOPPY: ALL OF IT" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="hidden" name="amount" value="20.00" />
-            <button type="submit" class="buy-button">Buy ALL OF IT – $20</button>
-          </form>
-        </article>
-      </div>
-
-      <p class="small-note">
-        *Free shipping for U.S. orders. I don't know how international shipping works :(
-      </p>
-
-      <div class="contact-banner">
-        <p class="contact-title">Stay in touch, dummy!</p>
-        <p class="contact-links">
-          <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
-          <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
-        </p>
-        <p class="contact-tagline">Tag me if you wanna! 🥺👉🏼👈🏼</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; <span id="year"></span> Hi, hello! Thanks for being here!</p>
-  </footer>
+  <div class="container">
+    <h1 id="callOut">Click the button to get a Call-Out!</h1>
+    <button onclick="generateCallOut()">Generate Call-Out</button>
+  </div>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const callOuts = [
+      "Able to lift a car", "Smiley", "Toothy", "Sweet", "Sweaty", "Worst", "Furriest", 
+      "Harriet", "Wet", "Smelly", "Capable of doing taxes", "Skilled in taxidermy", 
+      "Willing to walk a dog", "Datable", "Undatable", "Clownish", "Foolish", "Bullish", 
+      "Childish", "Child-like", "Funny", "Scary", "Boring", "Red", "Blue", "Yellow", "Green", 
+      "White", "Black", "Dark", "Light", "Batty", "Wild", "Purple", "Hazy", "Edible", 
+      "Inedible", "Drinkable", "Undrinkable", "Save the day", "Start a dance party", 
+      "Villainous", "Win a beauty contest", "Break the internet", "Always late", "Become a meme", 
+      "Unlikely to succeed", "Win an award", "Outgoing", "Shy", "Stubborn", "Melodramatic", 
+      "Confused", "Unique", "Likes to nap", "Found in a library", "Reality show star", 
+      "Start a revolution", "Podcaster", "Untruthful", "Sneaky", "Snoopy", "Has secret identity", 
+      "Into dragons", "Into rollercoasters", "Into ninja swords", "Has a stamp collection", 
+      "Has a coin collection", "Animal lover", "Good teacher", "Good learner", "Public speaker", 
+      "Twitch streamer", "Best hair", "Worst hair", "Best dancer", "Neurotic", "Anxious", 
+      "Depressed", "Anxiety inducing", "Depressing", "Survivalist", "Freaky", "Have an existential crisis", 
+      "Pirate-like", "Steals your fries", "Clumsy", "Hectic", "Frantic", "Mad scientist", 
+      "Sleeps through a fire drill", "Sleepy", "Lazy", "Space case", "Storyteller", "Gives unsolicited advice", 
+      "Know-it-all", "Trendsetter", "Time traveler", "Fantastical", "Pyromaniac", "Wizardly", 
+      "Shop-a-holic", "Coffee snob", "Argumentative", "Combative", "Aggressive", "Assertive", "Passive", 
+      "Cowardly", "Comfortable", "Blank", "Plain", "Game show host", "Dreamy", "Party animal", "Bummer", 
+      "Has a pet ferret", "Forgetful", "Friendly to strangers", "Good tipper", "Bad tipper", "Reclusive", 
+      "Stays on-topic", "Goes off-topic", "Focused", "Spacey", "Smart", "Intelligent", "Stupid", 
+      "Silly", "Wacky", "Believes in conspiracy theories", "Believes in Bigfoot", "Believes in aliens", 
+      "Believes in Mothman", "Complimentative", "On TV", "Film star", "Theater kid", "Dirty", 
+      "Filthy", "Obsessed", "In love", "Lover", "Fighter", "Competitive", "Thinker", "Contemplative", 
+      "Happy", "Hoppy", "Gnarly", "Radical", "Cool", "Icy", "Snowy", "Mysterious", "Unpredictable", 
+      "Bossy", "Adventurous", "Nonchalant", "Dangerous", "Spontaneous", "Out of control", "Chill", 
+      "Jumpy", "Overzealous", "Overthinker", "Daydreamer", "Night owl", "Early riser", "Leader", 
+      "Follower", "Achiever", "Underachiever", "Dreamer", "Idealistic", "Realistic", "Tough", 
+      "Sensitive", "Hyper", "Laid-back", "Distracted", "Creative", "Artistic", "Crafty", "Reluctant", 
+      "Peaceful", "Chaos-inducing", "Anomaly", "Fearless", "Scaredy-cat", "Full of energy", "Energizer bunny", 
+      "Talkative", "Silent", "Loud", "Quiet", "Spicy", "Sweet tooth", "Hoarder", "Minimalist", "Selfish", 
+      "Selfless", "Smartest in the room", "Not-so-smartest in the room", "Scatterbrained", "Too logical", 
+      "Too emotional", "Just right", "Mediocre", "Never gives up", "Never quits", "Feels too much", 
+      "Feels too little", "Regular", "Irregular", "Stale", "Fresh", "Bold", "Reserved", "Original", 
+      "Copycat", "Opportunistic", "Negotiator", "Survivor", "Late bloomer", "Underdog", "Teacher’s pet", 
+      "Late to the party", "Early bird", "Overwhelming", "Underwhelming", "High-maintenance", "Low-maintenance", 
+      "Emo", "Goth", "Preppy", "Punk", "Hipster", "Jock", "Nerd", "Geek", "Loner", "Social butterfly", 
+      "Socially awkward", "Thrill-seeker", "Couch potato", "Computer whiz", "Fitness fanatic", "Foodie", 
+      "Bad cook", "Good cook", "Junk food lover", "Health nut", "Sports enthusiast", "Distant", "Close-knit", 
+      "Superstitious", "Skeptical", "Nature lover", "City dweller", "Homebody", "Nighttime thinker", 
+      "Sun worshipper", "Moonlight admirer", "Earth lover", "Weather-obsessed", "Water-loving", "Animal whisperer", 
+      "Plant whisperer", "Noise-sensitive", "Sound-loving", "Space-conscious", "Handyman", "Handywoman", 
+      "Fearful", "Braveheart", "Flexible", "Rigid", "Procrastinator", "Perfectionist", "Loud laugher", 
+      "Quiet laugher", "Always tired", "Always energetic", "Handsy", "Handy", "Slimy", "Goopy", "Wiggly", 
+      "Squirmy", "Sweet tooth"
+    ];
+
+    function generateCallOut() {
+      const randomIndex = Math.floor(Math.random() * callOuts.length);
+      document.getElementById('callOut').innerText = callOuts[randomIndex];
+    }
   </script>
 </body>
 </html>
