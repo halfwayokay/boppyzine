@@ -9,7 +9,7 @@
       --bg: #ffffff;
       --card-bg: #ffffff;
       --text: #222222;
-      --muted: #000000;
+      --muted: #555555;
       --border: #dddddd;
     }
 
@@ -17,6 +17,12 @@
       box-sizing: border-box;
     }
 
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img class="lightbox-image" id="lightbox-img" src="" alt="">
+</div>
+
+    
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       max-width: 1000px;
@@ -178,7 +184,35 @@
       text-align: center;
       color: var(--muted);
     }
-  </style>
+
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: #ffffff;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
   <header>
@@ -197,7 +231,7 @@
     <section>
       <div class="product-grid">
         <article class="product-card">
-          <img src="boppy-sizes.png" alt="Sizes" class="product-image" />
+          <img src="boppy-sizes.png" alt="Sizes" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">BOPPY “Sizes”</h2>
           <p class="product-desc">
             Sizes. What are they? FIND OUT!<br><br>
@@ -214,7 +248,7 @@
         </article>
 
         <article class="product-card">
-          <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" />
+          <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">BOPPY “Grocery Store”</h2>
           <p class="product-desc">
             A grocery store experience that fits in your pocket!<br><br>
@@ -231,7 +265,7 @@
         </article>
 
         <article class="product-card">
-          <img src="boppy-private-time.png" alt="Private Time" class="product-image" />
+          <img src="boppy-private-time.png" alt="Private Time" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">BOPPY “Private Time”</h2>
           <p class="product-desc">
             Skill the chill pills. Take this instead!<br><br>
@@ -248,7 +282,7 @@
         </article>
 
         <article class="product-card">
-          <img src="boppy-beverages.png" alt="Beverages" class="product-image" />
+          <img src="boppy-beverages.png" alt="Beverages" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">BOPPY “Beverages”</h2>
           <p class="product-desc">
             Finally, a beverage you can read!<br><br>
@@ -265,7 +299,7 @@
         </article>
 
         <article class="product-card">
-          <img src="boppy-yearbook.png" alt="Yearbook" class="product-image" />
+          <img src="boppy-yearbook.png" alt="Yearbook" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">BOPPY “Yearbook”</h2>
           <p class="product-desc">
             A totally normal yearbook.<br><br>
@@ -282,7 +316,7 @@
         </article>
 
         <article class="product-card">
-          <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" />
+          <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
           <p class="product-desc">
             A complete set of Official BOPPY Sticker Sheets Vol 1.
@@ -300,7 +334,7 @@
         </article>
 
         <article class="product-card">
-          <img src="boppy-all-of-it.png" alt="BOPPY: ALL OF IT" class="product-image" />
+          <img src="boppy-all-of-it.png" alt="BOPPY: ALL OF IT" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">BOPPY: ALL OF IT</h2>
           <p class="product-desc">
             One of every BOPPY and Official BOPPY Sticker Sheet.<br><br>
@@ -339,5 +373,25 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
+<script>
+function openLightbox(src) {
+  const lightbox = document.getElementById("lightbox");
+  const img = document.getElementById("lightbox-img");
+  img.src = src;
+  lightbox.style.display = "flex";
+}
+
+document.querySelector(".lightbox-close").onclick = function() {
+  document.getElementById("lightbox").style.display = "none";
+};
+
+document.getElementById("lightbox").onclick = function(e) {
+  if (e.target.id === "lightbox") {
+    this.style.display = "none";
+  }
+};
+</script>
+  
 </body>
 </html>
