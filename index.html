@@ -1,130 +1,339 @@
-<!-- ONLY SHOWING PRODUCT GRID SECTION (your styles stay the same) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BOPPY A Cool Art Zine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card-bg: #ffffff;
+      --text: #222222;
+      --muted: #666666;
+      --border: #dddddd;
+    }
 
-<div class="product-grid">
+    * {
+      box-sizing: border-box;
+    }
 
-<!-- Sizes -->
-<article class="product-card">
-  <img src="boppy-sizes.png" class="product-image">
-  <h2 class="product-title">BOPPY “Sizes”</h2>
-  <p class="product-desc">
-    Sizes is a cool book about sizes.<br><br>
-    Includes a random sticker sheet!<br><br>
-    Free shipping!*
-  </p>
-  <div class="price">$4.00</div>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--text);
+    }
 
-  <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick" />
-    <input type="hidden" name="hosted_button_id" value="GKE47BTY24CJY" />
-    <button class="buy-button">Buy Sizes</button>
-  </form>
-</article>
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
 
-<!-- Grocery Store -->
-<article class="product-card">
-  <img src="boppy-grocery-store.png" class="product-image">
-  <h2 class="product-title">BOPPY “Grocery Store”</h2>
-  <p class="product-desc">
-    All you ever needed to know about the grocery store!<br><br>
-    Includes a random sticker sheet!<br><br>
-    Free shipping!*
-  </p>
-  <div class="price">$4.00</div>
+    .header-image {
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto 1.5rem;
+    }
 
-  <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick" />
-    <input type="hidden" name="hosted_button_id" value="U86ZGCGZ6KFZE" />
-    <button class="buy-button">Buy Grocery Store</button>
-  </form>
-</article>
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2rem;
+    }
 
-<!-- Private Time -->
-<article class="product-card">
-  <img src="boppy-private-time.png" class="product-image">
-  <h2 class="product-title">BOPPY “Private Time”</h2>
-  <p class="product-desc">
-    We all need some time to chill solo style!<br><br>
-    Includes a random sticker sheet!<br><br>
-    Free shipping!*
-  </p>
-  <div class="price">$4.00</div>
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
 
-  <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick" />
-    <input type="hidden" name="hosted_button_id" value="UN623JAF26P3Q" />
-    <button class="buy-button">Buy Private Time</button>
-  </form>
-</article>
+    .subtitle a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: 600;
+    }
 
-<!-- Beverages -->
-<article class="product-card">
-  <img src="boppy-beverages.png" class="product-image">
-  <h2 class="product-title">BOPPY “Beverages”</h2>
-  <p class="product-desc">
-    Finally, a beverage you can read!<br><br>
-    Includes a random sticker sheet!<br><br>
-    Free shipping!*
-  </p>
-  <div class="price">$4.00</div>
+    .intro {
+      margin: 1.5rem 0 2rem;
+      text-align: center;
+      color: var(--text);
+    }
 
-  <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick" />
-    <input type="hidden" name="hosted_button_id" value="6UQC9DXQCMGRQ" />
-    <button class="buy-button">Buy Beverages</button>
-  </form>
-</article>
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
 
-<!-- Yearbook (NEW) -->
-<article class="product-card">
-  <img src="boppy-yearbook.png" class="product-image">
-  <h2 class="product-title">BOPPY “Yearbook”</h2>
-  <p class="product-desc">
-    A totally normal yearbook.<br><br>
-    Includes a random sticker sheet!<br><br>
-    Free shipping!*
-  </p>
-  <div class="price">$4.00</div>
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
 
-  <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick" />
-    <input type="hidden" name="hosted_button_id" value="Z2CY2B7ELND5W" />
-    <button class="buy-button">Buy Yearbook</button>
-  </form>
-</article>
+    .product-image {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
 
-<!-- Sticker Sheet Set -->
-<article class="product-card">
-  <img src="boppy-sticker-sheet-vol-1.png" class="product-image">
-  <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
-  <p class="product-desc">
-    A complete set of Official BOPPY Sticker Sheets.<br><br>
-    Free shipping!*
-  </p>
-  <div class="price">$7.00</div>
+    .product-title {
+      margin: 0 0 0.25rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
 
-  <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick" />
-    <input type="hidden" name="hosted_button_id" value="USYY4ZRYWHQ38" />
-    <button class="buy-button">Buy Sticker Set</button>
-  </form>
-</article>
+    .product-desc {
+      margin: 0 0 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      flex-grow: 1;
+    }
 
-<!-- ALL OF IT -->
-<article class="product-card">
-  <img src="boppy-all-of-it.png" class="product-image">
-  <h2 class="product-title">BOPPY: ALL OF IT</h2>
-  <p class="product-desc">
-    One of each BOPPY + sticker set.<br><br>
-    Good value!<br><br>
-    Free shipping!*
-  </p>
-  <div class="price">$20.00</div>
+    .price {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
 
-  <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_s-xclick" />
-    <input type="hidden" name="hosted_button_id" value="VW4XNRAXXCBZW" />
-    <button class="buy-button">Buy ALL OF IT</button>
-  </form>
-</article>
+    .buy-form {
+      margin-top: auto;
+    }
 
-</div>
+    .buy-button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: #ffc439;
+      color: #111;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .small-note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .contact-banner {
+      margin-top: 3rem;
+      padding: 2rem 1rem;
+      background: #444444;
+      color: #ffffff;
+      text-align: center;
+      width: 100%;
+    }
+
+    .contact-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-links {
+      font-size: 1.1rem;
+      margin: 0 0 0.75rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-banner a {
+      color: #ffffff;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .contact-banner a:hover {
+      opacity: 0.85;
+    }
+
+    .contact-tagline {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      text-align: center;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="boppy_header.png" alt="Header artwork" class="header-image" />
+    <h1>Buy a BOPPY!</h1>
+    <p class="subtitle">
+      A cool art zine made by <a href="https://linktr.ee/halfwayokay" target="_blank">halfwayokay</a>'s Bingo!
+    </p>
+  </header>
+
+  <section class="intro">
+    <p>(BOPPY contents are weird, fun, and PG.)</p>
+  </section>
+
+  <main>
+    <section>
+      <div class="product-grid">
+        <article class="product-card">
+          <img src="boppy-sizes.png" alt="Sizes" class="product-image" />
+          <h2 class="product-title">BOPPY “Sizes”</h2>
+          <p class="product-desc">
+            Sizes is a cool book about sizes.<br><br>
+            Includes a random sticker sheet!<br><br>
+            Free shipping!*
+          </p>
+          <div class="price">$4.00</div>
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="GKE47BTY24CJY" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <button type="submit" class="buy-button">Buy Sizes – $4</button>
+          </form>
+        </article>
+
+        <article class="product-card">
+          <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" />
+          <h2 class="product-title">BOPPY “Grocery Store”</h2>
+          <p class="product-desc">
+            All you ever needed to know about the grocery store!<br><br>
+            Includes a random sticker sheet!<br><br>
+            Free shipping!*
+          </p>
+          <div class="price">$4.00</div>
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="U86ZGCGZ6KFZE" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <button type="submit" class="buy-button">Buy Grocery Store – $4</button>
+          </form>
+        </article>
+
+        <article class="product-card">
+          <img src="boppy-private-time.png" alt="Private Time" class="product-image" />
+          <h2 class="product-title">BOPPY “Private Time”</h2>
+          <p class="product-desc">
+            We all need some time to chill solo style!<br><br>
+            Includes a random sticker sheet!<br><br>
+            Free shipping!*
+          </p>
+          <div class="price">$4.00</div>
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="UN623JAF26P3Q" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <button type="submit" class="buy-button">Buy Private Time – $4</button>
+          </form>
+        </article>
+
+        <article class="product-card">
+          <img src="boppy-beverages.png" alt="Beverages" class="product-image" />
+          <h2 class="product-title">BOPPY “Beverages”</h2>
+          <p class="product-desc">
+            Finally, a beverage you can read!<br><br>
+            Includes a random sticker sheet!<br><br>
+            Free shipping!*
+          </p>
+          <div class="price">$4.00</div>
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="6UQC9DXQCMGRQ" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <button type="submit" class="buy-button">Buy Beverages – $4</button>
+          </form>
+        </article>
+
+        <article class="product-card">
+          <img src="boppy-yearbook.png" alt="Yearbook" class="product-image" />
+          <h2 class="product-title">BOPPY “Yearbook”</h2>
+          <p class="product-desc">
+            A totally normal yearbook.<br><br>
+            Includes a random sticker sheet!<br><br>
+            Free shipping!*
+          </p>
+          <div class="price">$4.00</div>
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="Z2CY2B7ELND5W" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <button type="submit" class="buy-button">Buy Yearbook – $4</button>
+          </form>
+        </article>
+
+        <article class="product-card">
+          <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" />
+          <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
+          <p class="product-desc">
+            A complete set of Official BOPPY Sticker Sheets Vol 1.<br><br>
+            Each one more bodacious than the last!<br><br>
+            Perfect for the BOPPY Sticker Zone!<br><br>
+            Free shipping!*
+          </p>
+          <div class="price">$7.00</div>
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="USYY4ZRYWHQ38" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <button type="submit" class="buy-button">Buy Sticker Sheet Set Vol 1 – $7</button>
+          </form>
+        </article>
+
+        <article class="product-card">
+          <img src="boppy-all-of-it.png" alt="BOPPY: ALL OF IT" class="product-image" />
+          <h2 class="product-title">BOPPY: ALL OF IT</h2>
+          <p class="product-desc">
+            One of each BOPPY and Official BOPPY Sticker Sheet.<br><br>
+            Good value!<br><br>
+            Free shipping!*
+          </p>
+          <div class="price">$20.00</div>
+          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick" />
+            <input type="hidden" name="hosted_button_id" value="VW4XNRAXXCBZW" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <button type="submit" class="buy-button">Buy ALL OF IT – $20</button>
+          </form>
+        </article>
+      </div>
+
+      <p class="small-note">
+        *Free shipping for U.S. orders. I don't know how international shipping works :(
+      </p>
+
+      <div class="contact-banner">
+        <p class="contact-title">Stay in touch!</p>
+        <p class="contact-links">
+          <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
+          <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
+        </p>
+        <p class="contact-tagline">Tag me if you wanna! 🥺👉🏼👈🏼</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Hi, hello! Thanks for being here!</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
