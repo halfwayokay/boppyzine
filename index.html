@@ -483,142 +483,149 @@
   </div>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    function openLightbox(src) {
-      const lightbox = document.getElementById("lightbox");
-      const img = document.getElementById("lightbox-img");
-      img.src = src;
-      lightbox.style.display = "flex";
+  function openLightbox(src) {
+    const lightbox = document.getElementById("lightbox");
+    const img = document.getElementById("lightbox-img");
+    img.src = src;
+    lightbox.style.display = "flex";
+  }
+
+  document.querySelector(".lightbox-close").onclick = function() {
+    document.getElementById("lightbox").style.display = "none";
+  };
+
+  document.getElementById("lightbox").onclick = function(e) {
+    if (e.target.id === "lightbox") {
+      this.style.display = "none";
     }
+  };
 
-    document.querySelector(".lightbox-close").onclick = function() {
-      document.getElementById("lightbox").style.display = "none";
+  function buildBackgroundGrid() {
+    const grid = document.getElementById("background-grid");
+    const tileWidth = 104;
+    const tileHeight = 158;
+    const totalImages = 41;
+    const extension = "jpg";
+
+    const cols = Math.ceil(window.innerWidth / tileWidth);
+    const rows = Math.ceil(window.innerHeight / tileHeight);
+    const totalTiles = cols * rows;
+
+    grid.innerHTML = "";
+    grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+    grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+
+    for (let i = 0; i < totalTiles; i++) {
+      const tile = document.createElement("div");
+      tile.className = "background-tile";
+
+      const imageNumber = Math.floor(Math.random() * totalImages) + 1;
+      const padded = String(imageNumber).padStart(2, "0");
+      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+
+      grid.appendChild(tile);
+    }
+  }
+
+  const stickerConfig = {
+    totalStickers: 20,
+    stickerPrefix: "sticker-",
+    stickerExtension: "png",
+    initialCount: 0,
+    maxOnPage: 20,
+    scrollSpawnEvery: 450,
+    spawnPerStep: 1
+  };
+
+  let stickerSpawned = 0;
+  let accumulatedScroll = 0;
+  let lastScrollY = window.scrollY;
+
+  function randomStickerPath() {
+    const n = Math.floor(Math.random() * stickerConfig.totalStickers) + 1;
+    const padded = String(n).padStart(2, "0");
+    return `${stickerConfig.stickerPrefix}${padded}.${stickerConfig.stickerExtension}`;
+  }
+
+  function spawnSticker() {
+    const layer = document.getElementById("sticker-layer");
+    if (!layer) return;
+    if (stickerSpawned >= stickerConfig.maxOnPage) return;
+
+    const sticker = document.createElement("img");
+    sticker.className = "sticker";
+    sticker.src = randomStickerPath();
+    sticker.alt = "";
+
+    const rotation = (Math.random() * 30) - 15;
+
+    sticker.onload = function () {
+      const docWidth = Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        window.innerWidth
+      );
+
+      const docHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        window.innerHeight
+      );
+
+      const stickerWidth = sticker.naturalWidth;
+      const stickerHeight = sticker.naturalHeight;
+
+      const left = Math.random() * Math.max(40, docWidth - stickerWidth - 40);
+      const top = Math.random() * Math.max(40, docHeight - stickerHeight - 40);
+
+      sticker.style.left = `${left}px`;
+      sticker.style.top = `${top}px`;
+      sticker.style.transform = `rotate(${rotation}deg)`;
+
+      layer.appendChild(sticker);
+      stickerSpawned += 1;
     };
+  }
 
-    document.getElementById("lightbox").onclick = function(e) {
-      if (e.target.id === "lightbox") {
-        this.style.display = "none";
-      }
-    };
+  function initStickers() {
+    lastScrollY = window.scrollY;
+  }
 
-    function buildBackgroundGrid() {
-      const grid = document.getElementById("background-grid");
-      const tileWidth = 104;
-      const tileHeight = 158;
-      const totalImages = 41;
-      const extension = "jpg";
+  function maybeSpawnStickersOnScroll() {
+    const currentY = window.scrollY;
+    const delta = Math.abs(currentY - lastScrollY);
 
-      const cols = Math.ceil(window.innerWidth / tileWidth);
-      const rows = Math.ceil(window.innerHeight / tileHeight);
-      const totalTiles = cols * rows;
+    accumulatedScroll += delta;
+    lastScrollY = currentY;
 
-      grid.innerHTML = "";
-      grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
-      grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
-
-      for (let i = 0; i < totalTiles; i++) {
-        const tile = document.createElement("div");
-        tile.className = "background-tile";
-
-        const imageNumber = Math.floor(Math.random() * totalImages) + 1;
-        const padded = String(imageNumber).padStart(2, "0");
-        tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
-
-        grid.appendChild(tile);
-      }
-    }
-
-    const stickerConfig = {
-      totalStickers: 20,
-      stickerPrefix: "sticker-",
-      stickerExtension: "png",
-      initialCount: 0,
-      maxOnPage: 20,
-      scrollSpawnEvery: 700,
-      spawnPerStep: 2
-    };
-
-    let stickerSpawned = 0;
-    let lastScrollSpawnY = 0;
-
-    function randomStickerPath() {
-      const n = Math.floor(Math.random() * stickerConfig.totalStickers) + 1;
-      const padded = String(n).padStart(2, "0");
-      return `${stickerConfig.stickerPrefix}${padded}.${stickerConfig.stickerExtension}`;
-    }
-
-    function spawnSticker() {
-      const layer = document.getElementById("sticker-layer");
-      if (!layer) return;
-      if (stickerSpawned >= stickerConfig.maxOnPage) return;
-
-      const sticker = document.createElement("img");
-      sticker.className = "sticker";
-      sticker.src = randomStickerPath();
-      sticker.alt = "";
-
-      const rotation = (Math.random() * 30) - 15;
-
-      sticker.onload = function () {
-        const docWidth = Math.max(
-          document.body.scrollWidth,
-          document.documentElement.scrollWidth,
-          window.innerWidth
-        );
-
-        const docHeight = Math.max(
-          document.body.scrollHeight,
-          document.documentElement.scrollHeight,
-          window.innerHeight
-        );
-
-        const stickerWidth = sticker.naturalWidth;
-        const stickerHeight = sticker.naturalHeight;
-
-        const left = Math.random() * Math.max(40, docWidth - stickerWidth - 40);
-        const top = Math.random() * Math.max(40, docHeight - stickerHeight - 40);
-
-        sticker.style.left = `${left}px`;
-        sticker.style.top = `${top}px`;
-        sticker.style.transform = `rotate(${rotation}deg)`;
-
-        layer.appendChild(sticker);
-        stickerSpawned += 1;
-      };
-    }
-
-    function initStickers() {
-      for (let i = 0; i < stickerConfig.initialCount; i++) {
+    while (
+      accumulatedScroll >= stickerConfig.scrollSpawnEvery &&
+      stickerSpawned < stickerConfig.maxOnPage
+    ) {
+      for (let i = 0; i < stickerConfig.spawnPerStep; i++) {
         spawnSticker();
+        if (stickerSpawned >= stickerConfig.maxOnPage) break;
       }
-      lastScrollSpawnY = window.scrollY;
+      accumulatedScroll -= stickerConfig.scrollSpawnEvery;
     }
+  }
 
-    function maybeSpawnStickersOnScroll() {
-      if (window.scrollY <= lastScrollSpawnY + stickerConfig.scrollSpawnEvery) return;
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(buildBackgroundGrid, 150);
+  });
 
-      const steps = Math.floor((window.scrollY - lastScrollSpawnY) / stickerConfig.scrollSpawnEvery);
-      for (let i = 0; i < steps * stickerConfig.spawnPerStep; i++) {
-        spawnSticker();
-      }
-      lastScrollSpawnY += steps * stickerConfig.scrollSpawnEvery;
-    }
+  let scrollTimeout;
+  window.addEventListener("scroll", () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(maybeSpawnStickersOnScroll, 30);
+  }, { passive: true });
 
-    let resizeTimeout;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(buildBackgroundGrid, 150);
-    });
-
-    let scrollTimeout;
-    window.addEventListener("scroll", () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(maybeSpawnStickersOnScroll, 50);
-    }, { passive: true });
-
-    buildBackgroundGrid();
-    initStickers();
+  buildBackgroundGrid();
+  initStickers();
   </script>
 </body>
 </html>
