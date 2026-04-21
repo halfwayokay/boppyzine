@@ -560,7 +560,9 @@
       sticker.src = randomStickerPath();
       sticker.alt = "";
 
-      const size = stickerConfig.minSize + Math.random() * (stickerConfig.maxSize - stickerConfig.minSize);
+
+sticker.style.width = "auto";
+sticker.style.height = "auto";e);
       const rotation = (Math.random() * 30) - 15;
 
       const docWidth = document.documentElement.scrollWidth;
@@ -569,10 +571,9 @@
         document.documentElement.scrollHeight,
         window.innerHeight
       );
-
-      const left = Math.random() * Math.max(40, docWidth - size - 40);
-      const top = Math.random() * Math.max(40, docHeight - size - 40);
-
+const left = Math.random() * (docWidth - 150);
+const top = Math.random() * (docHeight - 150);
+      
       sticker.style.width = `${size}px`;
       sticker.style.left = `${left}px`;
       sticker.style.top = `${top}px`;
