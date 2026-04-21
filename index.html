@@ -580,21 +580,19 @@
   }
 
   function findNonOverlappingPosition(width, height) {
-    const docWidth = Math.max(
-      document.body.scrollWidth,
-      document.documentElement.scrollWidth,
-      window.innerWidth
-    );
+const layerRect = layer.getBoundingClientRect();
+const layerWidth = layer.clientWidth;
+const layerHeight = Math.max(
+  document.body.scrollHeight,
+  document.documentElement.scrollHeight,
+  window.innerHeight
+);
 
-    const docHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      window.innerHeight
-    );
+const stickerWidth = sticker.naturalWidth * scale;
+const stickerHeight = sticker.naturalHeight * scale;
 
-    for (let attempt = 0; attempt < stickerConfig.positionAttempts; attempt++) {
-      const left = Math.random() * Math.max(40, docWidth - width - 40);
-      const top = Math.random() * Math.max(40, docHeight - height - 40);
+const left = Math.random() * Math.max(40, layerWidth - stickerWidth - 40);
+const top = Math.random() * Math.max(40, layerHeight - stickerHeight - 40);
 
       const testRect = {
         left,
@@ -625,26 +623,30 @@
     sticker.src = nextStickerPath();
     sticker.alt = "";
 
-    const rotation = (Math.random() * 30) - 15;
+const rotation = (Math.random() * 30) - 15;
+const scale = 0.75 + Math.random() * 0.15;
 
-    sticker.onload = function () {
-      const stickerWidth = sticker.naturalWidth;
-      const stickerHeight = sticker.naturalHeight;
+sticker.onload = function () {
+  const layerWidth = layer.clientWidth;
+  const layerHeight = Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight,
+    window.innerHeight
+  );
 
-      const pos = findNonOverlappingPosition(stickerWidth, stickerHeight);
-      if (!pos) return;
+  const stickerWidth = sticker.naturalWidth * scale;
+  const stickerHeight = sticker.naturalHeight * scale;
 
-      sticker.style.left = `${pos.left}px`;
-      sticker.style.top = `${pos.top}px`;
-   const scale = 0.75 + Math.random() * 0.15;
+  const left = Math.random() * Math.max(40, layerWidth - stickerWidth - 40);
+  const top = Math.random() * Math.max(40, layerHeight - stickerHeight - 40);
 
-sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+  sticker.style.left = `${left}px`;
+  sticker.style.top = `${top}px`;
+  sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
 
-      layer.appendChild(sticker);
-
-      placedStickerRects.push(pos);
-      stickerSpawned += 1;
-    };
+  layer.appendChild(sticker);
+  stickerSpawned += 1;
+};
   }
 
   function initStickers() {
