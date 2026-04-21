@@ -537,7 +537,7 @@
     maxOnPage: 20,
     scrollSpawnEvery: 700,
     spawnPerStep: 2,
-    maxNativeWidth: 85
+   sticker.style.maxWidth = ...
   };
 
   let stickerSpawned = 0;
@@ -549,18 +549,20 @@
     return `${stickerConfig.stickerPrefix}${padded}.${stickerConfig.stickerExtension}`;
   }
 
-  function spawnSticker() {
-    const layer = document.getElementById("sticker-layer");
-    if (!layer) return;
-    if (stickerSpawned >= stickerConfig.maxOnPage) return;
+<script>
+function spawnSticker() {
+  const layer = document.getElementById("sticker-layer");
+  if (!layer) return;
+  if (stickerSpawned >= stickerConfig.maxOnPage) return;
 
-    const sticker = document.createElement("img");
-    sticker.className = "sticker";
-    sticker.src = randomStickerPath();
-    sticker.alt = "";
+  const sticker = document.createElement("img");
+  sticker.className = "sticker";
+  sticker.src = randomStickerPath();
+  sticker.alt = "";
 
-    const rotation = (Math.random() * 30) - 15;
+  const rotation = (Math.random() * 30) - 15;
 
+  sticker.onload = function () {
     const docWidth = Math.max(
       document.body.scrollWidth,
       document.documentElement.scrollWidth,
@@ -573,20 +575,21 @@
       window.innerHeight
     );
 
-    const safeBuffer = 160;
-    const left = Math.random() * Math.max(40, docWidth - safeBuffer);
-    const top = Math.random() * Math.max(40, docHeight - safeBuffer);
+    const stickerWidth = sticker.naturalWidth;
+    const stickerHeight = sticker.naturalHeight;
+
+    const left = Math.random() * Math.max(40, docWidth - stickerWidth - 40);
+    const top = Math.random() * Math.max(40, docHeight - stickerHeight - 40);
 
     sticker.style.left = `${left}px`;
     sticker.style.top = `${top}px`;
     sticker.style.transform = `rotate(${rotation}deg)`;
-    sticker.style.width = "auto";
-    sticker.style.height = "auto";
-    sticker.style.maxWidth = `${stickerConfig.maxNativeWidth}px`;
 
     layer.appendChild(sticker);
     stickerSpawned += 1;
-  }
+  };
+}
+</script>
 
   function initStickers() {
     for (let i = 0; i < stickerConfig.initialCount; i++) {
