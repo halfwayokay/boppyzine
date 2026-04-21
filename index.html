@@ -41,26 +41,25 @@
       opacity: 0.45;
     }
 
-.background-tile {
-    width: 104px;
-  height: 158px;
+    .background-tile {
+      width: 104px;
+      height: 158px;
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     }
 
     header,
-    .hero-band,
-    .intro,
+    .top-card,
     main,
     footer {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     header {
       text-align: center;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .header-image {
@@ -70,33 +69,27 @@
       margin: 0 auto 1.5rem;
     }
 
-.hero-band {
-  background: #000000;
-  color: #ffffff;
-  padding: 1rem 1rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
+    .top-card {
+      background: #ffffff;
+      border: 4px solid #000000;
+      border-radius: 34px;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 2;
+    }
 
-.top-card {
-  background: #ffffff;
-  border: 3px solid #000000;
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: center;
-  margin-bottom: 2rem;
-}
+    .top-card p {
+      margin: 0.3rem 0;
+    }
 
-.top-card p {
-  margin: 0.3rem 0;
-}
+    .top-card a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: 600;
+    }
 
-.top-card a {
-  color: inherit;
-  text-decoration: underline;
-  font-weight: 600;
-}
-    
     h1 {
       margin: 0 0 0.5rem;
       font-size: 2rem;
@@ -114,11 +107,6 @@
       font-weight: 600;
     }
 
-    .intro {
-      margin: 1.5rem 0 2rem;
-      text-align: center;
-    }
-
     .highlight {
       background: #ffffff;
       display: inline-block;
@@ -133,14 +121,16 @@
     }
 
     .product-card {
-       background: var(--card-bg);
-  border: 4px solid #000000;
-  border-radius: 34px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);;
+      background: var(--card-bg);
+      border: 4px solid #000000;
+      border-radius: 34px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      position: relative;
+      z-index: 2;
     }
 
     .product-image {
@@ -192,8 +182,22 @@
     .small-note {
       margin-top: 1.5rem;
       font-size: 0.8rem;
-      color: var(--muted);
+      color: #ffffff;
       text-align: center;
+      background: #000000;
+      border: 4px solid #000000;
+      border-radius: 34px;
+      padding: 0.9rem 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .small-note .highlight {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+      display: inline;
     }
 
     .contact-banner {
@@ -203,7 +207,9 @@
       color: #ffffff;
       text-align: center;
       width: 100%;
-      corner-radius: 34;
+      border-radius: 34px;
+      position: relative;
+      z-index: 2;
     }
 
     .contact-title {
@@ -281,10 +287,6 @@
       .background-grid {
         opacity: 0.35;
       }
-
-      .highlight {
-        padding: 0.2rem 0.4rem;
-      }
     }
   </style>
 </head>
@@ -293,17 +295,17 @@
 
   <header>
     <img src="boppy_header.png" alt="Header artwork" class="header-image" />
-
   </header>
 
-<div class="top-card">
-  <p>
-    made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a>
-  </p>
-  <p>
-    🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️
-  </p>
-</div>
+  <div class="top-card">
+    <p>
+      made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a>
+    </p>
+    <p>
+      🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️
+    </p>
+  </div>
+
   <main>
     <section>
       <div class="product-grid">
@@ -429,9 +431,7 @@
       </div>
 
       <p class="small-note">
-        <span class="highlight">
-          <strong>*Free shipping for U.S. orders. I don't know how international shipping works :(</strong>
-        </span>
+        <strong>*Free shipping for U.S. orders. I don't know how international shipping works :(</strong>
       </p>
 
       <div class="contact-banner">
@@ -480,8 +480,8 @@
 
     function buildBackgroundGrid() {
       const grid = document.getElementById("background-grid");
-const tileWidth = 104;
-const tileHeight = 158;
+      const tileWidth = 104;
+      const tileHeight = 158;
       const totalImages = 41;
       const extension = "jpg";
 
