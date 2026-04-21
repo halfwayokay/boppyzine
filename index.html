@@ -534,6 +534,56 @@
   const stickerConfig = {
     totalStickers: 20,
     stickerPrefix: "sticker-",
+    stickerExtension: "png",<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  function openLightbox(src) {
+    const lightbox = document.getElementById("lightbox");
+    const img = document.getElementById("lightbox-img");
+    img.src = src;
+    lightbox.style.display = "flex";
+  }
+
+  document.querySelector(".lightbox-close").onclick = function() {
+    document.getElementById("lightbox").style.display = "none";
+  };
+
+  document.getElementById("lightbox").onclick = function(e) {
+    if (e.target.id === "lightbox") {
+      this.style.display = "none";
+    }
+  };
+
+  function buildBackgroundGrid() {
+    const grid = document.getElementById("background-grid");
+    const tileWidth = 104;
+    const tileHeight = 158;
+    const totalImages = 41;
+    const extension = "jpg";
+
+    const cols = Math.ceil(window.innerWidth / tileWidth);
+    const rows = Math.ceil(window.innerHeight / tileHeight);
+    const totalTiles = cols * rows;
+
+    grid.innerHTML = "";
+    grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+    grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+
+    for (let i = 0; i < totalTiles; i++) {
+      const tile = document.createElement("div");
+      tile.className = "background-tile";
+
+      const imageNumber = Math.floor(Math.random() * totalImages) + 1;
+      const padded = String(imageNumber).padStart(2, "0");
+      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+
+      grid.appendChild(tile);
+    }
+  }
+
+  const stickerConfig = {
+    totalStickers: 20,
+    stickerPrefix: "sticker-",
     stickerExtension: "png",
     initialCount: 0,
     maxOnPage: 20,
@@ -541,8 +591,8 @@
     spawnPerStep: 1,
     positionAttempts: 40,
     stickerPadding: 12,
-minScale: 0.65,
-maxScale: 0.82
+    minScale: 0.65,
+    maxScale: 0.82
   };
 
   let stickerSpawned = 0;
@@ -583,10 +633,33 @@ maxScale: 0.82
     );
   }
 
+  function getStickerZones(layerWidth, layerHeight) {
+    return [
+      { x: 0, y: 0, w: layerWidth * 0.25, h: layerHeight * 0.2 },
+      { x: layerWidth * 0.75, y: 0, w: layerWidth * 0.25, h: layerHeight * 0.2 },
+
+      { x: 0, y: layerHeight * 0.8, w: layerWidth * 0.25, h: layerHeight * 0.2 },
+      { x: layerWidth * 0.75, y: layerHeight * 0.8, w: layerWidth * 0.25, h: layerHeight * 0.2 },
+
+      { x: 0, y: layerHeight * 0.2, w: layerWidth * 0.2, h: layerHeight * 0.6 },
+      { x: layerWidth * 0.8, y: layerHeight * 0.2, w: layerWidth * 0.2, h: layerHeight * 0.6 },
+
+      { x: layerWidth * 0.3, y: layerHeight * 0.25, w: layerWidth * 0.4, h: layerHeight * 0.2 },
+      { x: layerWidth * 0.3, y: layerHeight * 0.6, w: layerWidth * 0.4, h: layerHeight * 0.2 },
+
+      { x: layerWidth * 0.2, y: 200, w: layerWidth * 0.6, h: 120 },
+      { x: layerWidth * 0.2, y: layerHeight - 250, w: layerWidth * 0.6, h: 150 }
+    ];
+  }
+
   function findNonOverlappingPosition(layerWidth, layerHeight, stickerWidth, stickerHeight) {
+    const zones = getStickerZones(layerWidth, layerHeight);
+
     for (let attempt = 0; attempt < stickerConfig.positionAttempts; attempt++) {
-      const left = Math.random() * Math.max(40, layerWidth - stickerWidth - 40);
-      const top = Math.random() * Math.max(40, layerHeight - stickerHeight - 40);
+      const zone = zones[Math.floor(Math.random() * zones.length)];
+
+      const left = zone.x + Math.random() * Math.max(10, zone.w - stickerWidth);
+      const top = zone.y + Math.random() * Math.max(10, zone.h - stickerHeight);
 
       const testRect = {
         left,
@@ -606,31 +679,7 @@ maxScale: 0.82
 
     return null;
   }
-function getStickerZones(layerWidth, layerHeight) {
-  return [
-    // Top corners
-    { x: 0, y: 0, w: layerWidth * 0.25, h: layerHeight * 0.2 },
-    { x: layerWidth * 0.75, y: 0, w: layerWidth * 0.25, h: layerHeight * 0.2 },
 
-    // Bottom corners
-    { x: 0, y: layerHeight * 0.8, w: layerWidth * 0.25, h: layerHeight * 0.2 },
-    { x: layerWidth * 0.75, y: layerHeight * 0.8, w: layerWidth * 0.25, h: layerHeight * 0.2 },
-
-    // Left / right vertical strips
-    { x: 0, y: layerHeight * 0.2, w: layerWidth * 0.2, h: layerHeight * 0.6 },
-    { x: layerWidth * 0.8, y: layerHeight * 0.2, w: layerWidth * 0.2, h: layerHeight * 0.6 },
-
-    // Mid gaps (safe-ish areas)
-    { x: layerWidth * 0.3, y: layerHeight * 0.25, w: layerWidth * 0.4, h: layerHeight * 0.2 },
-    { x: layerWidth * 0.3, y: layerHeight * 0.6, w: layerWidth * 0.4, h: layerHeight * 0.2 },
-
-    // Near top card band
-    { x: layerWidth * 0.2, y: 200, w: layerWidth * 0.6, h: 120 },
-
-    // Near footer
-    { x: layerWidth * 0.2, y: layerHeight - 250, w: layerWidth * 0.6, h: 150 }
-  ];
-}
   function spawnSticker() {
     const layer = document.getElementById("sticker-layer");
     if (!layer) return;
@@ -646,7 +695,7 @@ function getStickerZones(layerWidth, layerHeight) {
       stickerConfig.minScale +
       Math.random() * (stickerConfig.maxScale - stickerConfig.minScale);
 
-    sticker.onload = function () {
+    sticker.onload = function() {
       const layerWidth = layer.clientWidth;
       const layerHeight = Math.max(
         document.body.scrollHeight,
@@ -657,36 +706,25 @@ function getStickerZones(layerWidth, layerHeight) {
       const stickerWidth = sticker.naturalWidth * scale;
       const stickerHeight = sticker.naturalHeight * scale;
 
-function findNonOverlappingPosition(layerWidth, layerHeight, stickerWidth, stickerHeight) {
-  const zones = getStickerZones(layerWidth, layerHeight);
+      const pos = findNonOverlappingPosition(
+        layerWidth,
+        layerHeight,
+        stickerWidth,
+        stickerHeight
+      );
 
-  for (let attempt = 0; attempt < stickerConfig.positionAttempts; attempt++) {
-    const zone = zones[Math.floor(Math.random() * zones.length)];
+      if (!pos) return;
 
-    const left =
-      zone.x + Math.random() * Math.max(10, zone.w - stickerWidth);
+      sticker.style.left = `${pos.left}px`;
+      sticker.style.top = `${pos.top}px`;
+      sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
 
-    const top =
-      zone.y + Math.random() * Math.max(10, zone.h - stickerHeight);
+      layer.appendChild(sticker);
 
-    const testRect = {
-      left,
-      top,
-      right: left + stickerWidth,
-      bottom: top + stickerHeight
+      placedStickerRects.push(pos);
+      stickerSpawned += 1;
     };
-
-    const overlapsExisting = placedStickerRects.some(rect =>
-      rectsOverlap(testRect, rect, stickerConfig.stickerPadding)
-    );
-
-    if (!overlapsExisting) {
-      return testRect;
-    }
   }
-
-  return null;
-}
 
   function initStickers() {
     stickerDeck = makeStickerDeck();
