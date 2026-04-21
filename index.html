@@ -49,6 +49,23 @@
       background-repeat: no-repeat;
     }
 
+    .sticker-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .sticker {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.28));
+      transform-origin: center center;
+      will-change: transform;
+    }
+
     header,
     .top-card,
     main,
@@ -69,16 +86,16 @@
       margin: 0 auto 2.5rem;
     }
 
-.top-card {
-  background: #ffffff;
-  border: 4px solid #000000;
-  border-radius: 34px;
-  padding: 1rem;
-  text-align: center;
-  margin: 1.5rem 0;
-  position: relative;
-  z-index: 2;
-}
+    .top-card {
+      background: #ffffff;
+      border: 4px solid #000000;
+      border-radius: 34px;
+      padding: 1rem;
+      text-align: center;
+      margin: 1.5rem 0;
+      position: relative;
+      z-index: 2;
+    }
 
     .top-card p {
       margin: 0.3rem 0;
@@ -115,12 +132,12 @@
       border-radius: 6px;
     }
 
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;  
-}
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
 
     .product-card {
       background: var(--card-bg);
@@ -251,6 +268,8 @@
       font-size: 0.8rem;
       text-align: center;
       color: var(--muted);
+      position: relative;
+      z-index: 2;
     }
 
     .lightbox {
@@ -294,12 +313,11 @@
 </head>
 <body>
   <div id="background-grid" class="background-grid"></div>
+  <div id="sticker-layer" class="sticker-layer"></div>
 
   <header>
     <img src="boppy_header.png" alt="Header artwork" class="header-image" />
   </header>
-
-
 
   <main>
     <section>
@@ -355,15 +373,17 @@
           </form>
         </article>
       </div>
-  <div class="top-card">
-     <p>
-      🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️
-    </p>
-       <p>
-      made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a>
-    </p>
-  </div>
-       <div class="product-grid">
+
+      <div class="top-card">
+        <p>
+          🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️
+        </p>
+        <p>
+          made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a>
+        </p>
+      </div>
+
+      <div class="product-grid">
         <article class="product-card">
           <img src="boppy-beverages.png" alt="Beverages" class="product-image" onclick="openLightbox(this.src)">
           <h2 class="product-title">BOPPY “Beverages”</h2>
@@ -438,18 +458,14 @@
         <strong>*Free shipping for U.S. orders. I don't know how international shipping works 😔</strong>
       </p>
 
-<div class="contact-banner">
-  <p class="contact-title">Keep in touch!</p>
-
-  <p class="contact-links">
-    <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
-    <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
-  </p>
-
-  <p class="contact-tagline">🖤 Please tag us! 🖤</p>
-
-  
-</div>
+      <div class="contact-banner">
+        <p class="contact-title">Keep in touch!</p>
+        <p class="contact-links">
+          <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
+          <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
+        </p>
+        <p class="contact-tagline">🖤 Please tag us! 🖤</p>
+      </div>
     </section>
   </main>
 
@@ -513,13 +529,90 @@
       }
     }
 
+    const stickerConfig = {
+      totalStickers: 20,
+      stickerPrefix: "sticker-",
+      stickerExtension: "png",
+      initialCount: 4,
+      maxOnPage: 14,
+      minSize: 80,
+      maxSize: 140,
+      scrollSpawnEvery: 850,
+      spawnPerStep: 1
+    };
+
+    let stickerSpawned = 0;
+    let lastScrollSpawnY = 0;
+
+    function randomStickerPath() {
+      const n = Math.floor(Math.random() * stickerConfig.totalStickers) + 1;
+      const padded = String(n).padStart(2, "0");
+      return `${stickerConfig.stickerPrefix}${padded}.${stickerConfig.stickerExtension}`;
+    }
+
+    function spawnSticker() {
+      const layer = document.getElementById("sticker-layer");
+      if (!layer) return;
+      if (stickerSpawned >= stickerConfig.maxOnPage) return;
+
+      const sticker = document.createElement("img");
+      sticker.className = "sticker";
+      sticker.src = randomStickerPath();
+      sticker.alt = "";
+
+      const size = stickerConfig.minSize + Math.random() * (stickerConfig.maxSize - stickerConfig.minSize);
+      const rotation = (Math.random() * 30) - 15;
+
+      const docWidth = document.documentElement.scrollWidth;
+      const docHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        window.innerHeight
+      );
+
+      const left = Math.random() * Math.max(40, docWidth - size - 40);
+      const top = Math.random() * Math.max(40, docHeight - size - 40);
+
+      sticker.style.width = `${size}px`;
+      sticker.style.left = `${left}px`;
+      sticker.style.top = `${top}px`;
+      sticker.style.transform = `rotate(${rotation}deg)`;
+
+      layer.appendChild(sticker);
+      stickerSpawned += 1;
+    }
+
+    function initStickers() {
+      for (let i = 0; i < stickerConfig.initialCount; i++) {
+        spawnSticker();
+      }
+      lastScrollSpawnY = window.scrollY;
+    }
+
+    function maybeSpawnStickersOnScroll() {
+      if (window.scrollY <= lastScrollSpawnY + stickerConfig.scrollSpawnEvery) return;
+
+      const steps = Math.floor((window.scrollY - lastScrollSpawnY) / stickerConfig.scrollSpawnEvery);
+      for (let i = 0; i < steps * stickerConfig.spawnPerStep; i++) {
+        spawnSticker();
+      }
+      lastScrollSpawnY += steps * stickerConfig.scrollSpawnEvery;
+    }
+
     let resizeTimeout;
     window.addEventListener("resize", () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(buildBackgroundGrid, 150);
     });
 
+    let scrollTimeout;
+    window.addEventListener("scroll", () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(maybeSpawnStickersOnScroll, 50);
+    }, { passive: true });
+
     buildBackgroundGrid();
+    initStickers();
   </script>
 </body>
 </html>
