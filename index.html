@@ -23,8 +23,38 @@
       margin: 0 auto;
       padding: 1.5rem 1rem 3rem;
       line-height: 1.6;
-      background: var(--bg);
+      background: transparent;
       color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .background-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      display: grid;
+      overflow: hidden;
+      pointer-events: none;
+      background: #ffffff;
+      justify-content: center;
+      opacity: 0.45;
+    }
+
+    .background-tile {
+      width: 174px;
+      height: 264px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header,
+    .intro,
+    main,
+    footer {
+      position: relative;
+      z-index: 1;
     }
 
     header {
@@ -59,6 +89,13 @@
     .intro {
       margin: 1.5rem 0 2rem;
       text-align: center;
+    }
+
+    .highlight {
+      background: #ffffff;
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
     }
 
     .product-grid {
@@ -163,7 +200,7 @@
     }
 
     .contact-banner a:hover {
-     color: #b796c6;
+      color: #b796c6;
     }
 
     .contact-tagline {
@@ -210,19 +247,36 @@
       cursor: pointer;
       user-select: none;
     }
+
+    @media (max-width: 640px) {
+      .background-grid {
+        opacity: 0.35;
+      }
+
+      .highlight {
+        padding: 0.2rem 0.4rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <div id="background-grid" class="background-grid"></div>
+
   <header>
     <img src="boppy_header.png" alt="Header artwork" class="header-image" />
-   
     <p class="subtitle">
-      made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a> 
+      <span class="highlight">
+        made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a>
+      </span>
     </p>
   </header>
 
   <section class="intro">
-    <p>🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️</p>
+    <p>
+      <span class="highlight">
+        🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️
+      </span>
+    </p>
   </section>
 
   <main>
@@ -350,7 +404,9 @@
       </div>
 
       <p class="small-note">
-        <strong> *Free shipping for U.S. orders. I don't know how international shipping works :( </strong>
+        <span class="highlight">
+          <strong>*Free shipping for U.S. orders. I don't know how international shipping works :(</strong>
+        </span>
       </p>
 
       <div class="contact-banner">
@@ -365,7 +421,11 @@
   </main>
 
   <footer>
-    <p>&copy; <span id="year"></span> Hi, hello! Thanks for being here!</p>
+    <p>
+      <span class="highlight">
+        &copy; <span id="year"></span> Hi, hello! Thanks for being here!
+      </span>
+    </p>
   </footer>
 
   <div id="lightbox" class="lightbox">
@@ -392,6 +452,41 @@
         this.style.display = "none";
       }
     };
+
+    function buildBackgroundGrid() {
+      const grid = document.getElementById("background-grid");
+      const tileWidth = 174;
+      const tileHeight = 264;
+      const totalImages = 41;
+      const extension = "jpg";
+
+      const cols = Math.ceil(window.innerWidth / tileWidth);
+      const rows = Math.ceil(window.innerHeight / tileHeight);
+      const totalTiles = cols * rows;
+
+      grid.innerHTML = "";
+      grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+      grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+
+      for (let i = 0; i < totalTiles; i++) {
+        const tile = document.createElement("div");
+        tile.className = "background-tile";
+
+        const imageNumber = Math.floor(Math.random() * totalImages) + 1;
+        const padded = String(imageNumber).padStart(2, "0");
+        tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+
+        grid.appendChild(tile);
+      }
+    }
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(buildBackgroundGrid, 150);
+    });
+
+    buildBackgroundGrid();
   </script>
 </body>
 </html>
