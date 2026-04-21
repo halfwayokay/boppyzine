@@ -534,56 +534,6 @@
   const stickerConfig = {
     totalStickers: 20,
     stickerPrefix: "sticker-",
-    stickerExtension: "png",<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  function openLightbox(src) {
-    const lightbox = document.getElementById("lightbox");
-    const img = document.getElementById("lightbox-img");
-    img.src = src;
-    lightbox.style.display = "flex";
-  }
-
-  document.querySelector(".lightbox-close").onclick = function() {
-    document.getElementById("lightbox").style.display = "none";
-  };
-
-  document.getElementById("lightbox").onclick = function(e) {
-    if (e.target.id === "lightbox") {
-      this.style.display = "none";
-    }
-  };
-
-  function buildBackgroundGrid() {
-    const grid = document.getElementById("background-grid");
-    const tileWidth = 104;
-    const tileHeight = 158;
-    const totalImages = 41;
-    const extension = "jpg";
-
-    const cols = Math.ceil(window.innerWidth / tileWidth);
-    const rows = Math.ceil(window.innerHeight / tileHeight);
-    const totalTiles = cols * rows;
-
-    grid.innerHTML = "";
-    grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
-    grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
-
-    for (let i = 0; i < totalTiles; i++) {
-      const tile = document.createElement("div");
-      tile.className = "background-tile";
-
-      const imageNumber = Math.floor(Math.random() * totalImages) + 1;
-      const padded = String(imageNumber).padStart(2, "0");
-      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
-
-      grid.appendChild(tile);
-    }
-  }
-
-  const stickerConfig = {
-    totalStickers: 20,
-    stickerPrefix: "sticker-",
     stickerExtension: "png",
     initialCount: 0,
     maxOnPage: 20,
