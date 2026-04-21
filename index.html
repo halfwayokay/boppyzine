@@ -636,7 +636,9 @@
 
       sticker.style.left = `${pos.left}px`;
       sticker.style.top = `${pos.top}px`;
-      sticker.style.transform = `rotate(${rotation}deg)`;
+   const scale = 0.75 + Math.random() * 0.15;
+
+sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
 
       layer.appendChild(sticker);
 
