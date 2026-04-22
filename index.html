@@ -526,7 +526,7 @@
   let accumulatedScroll = 0;
   let lastScrollY = window.scrollY;
   let stickerDeck = [];
-  let stickerNodeDeck = [];
+  let nodeDeck = [];
 
   function makeStickerDeck() {
     const deck = [];
@@ -550,49 +550,100 @@
     return stickerDeck.pop();
   }
 
-  function makeNodeDeck() {
-    const nodes = [
-      { x: 0.08, y: 0.06 },
-      { x: 0.92, y: 0.06 },
-      { x: 0.05, y: 0.18 },
-      { x: 0.95, y: 0.18 },
-
-      { x: 0.28, y: 0.28 },
-      { x: 0.72, y: 0.28 },
-      { x: 0.50, y: 0.38 },
-
-      { x: 0.04, y: 0.45 },
-
-      { x: 0.30, y: 0.52 },
-      { x: 0.70, y: 0.52 },
-
-      { x: 0.25, y: 0.65 },
-      { x: 0.75, y: 0.65 },
-
-      { x: 0.30, y: 0.78 },
-
-      { x: 0.10, y: 0.82 },
-      { x: 0.60, y: 0.88 },
-
-      { x: 0.50, y: 0.92 },
-
-      { x: 0.15, y: 0.96 },
-      { x: 0.85, y: 0.96 }
-    ];
-
-    for (let i = nodes.length - 1; i > 0; i--) {
+  function shuffle(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-
-    return nodes;
+    return arr;
   }
 
-  function nextStickerNode() {
-    if (stickerNodeDeck.length === 0) {
-      stickerNodeDeck = makeNodeDeck();
+  function buildNodeDeck(stickerWidth, stickerHeight) {
+    const layer = document.getElementById("sticker-layer");
+    const layerRect = layer.getBoundingClientRect();
+    const nodes = [];
+
+    const header = document.querySelector(".header-image");
+    if (header) {
+      const rect = header.getBoundingClientRect();
+      const left = rect.left - layerRect.left;
+      const top = rect.top - layerRect.top + window.scrollY;
+      const w = rect.width;
+      const h = rect.height;
+
+      nodes.push(
+        // upper left
+        {
+          left: left - stickerWidth * 0.20,
+          top: top - stickerHeight * 0.20
+        },
+        // lower off center to right
+        {
+          left: left + w * 0.68 - stickerWidth * 0.5,
+          top: top + h - stickerHeight * 0.35
+        },
+        // upper right
+        {
+          left: left + w - stickerWidth * 0.80,
+          top: top - stickerHeight * 0.20
+        },
+        // lower left
+        {
+          left: left - stickerWidth * 0.15,
+          top: top + h - stickerHeight * 0.35
+        }
+      );
     }
-    return stickerNodeDeck.pop();
+
+    const cards = document.querySelectorAll(".product-card");
+    cards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const left = rect.left - layerRect.left;
+      const top = rect.top - layerRect.top + window.scrollY;
+      const w = rect.width;
+      const h = rect.height;
+
+      const styleIndex = index % 4;
+
+      const upperLeft = {
+        left: left - stickerWidth * 0.18,
+        top: top - stickerHeight * 0.18
+      };
+
+      const upperRight = {
+        left: left + w - stickerWidth * 0.82,
+        top: top - stickerHeight * 0.18
+      };
+
+      const lowerRightAboveButton = {
+        left: left + w - stickerWidth * 0.82,
+        top: top + h * 0.72 - stickerHeight * 0.5
+      };
+
+      if (styleIndex === 0) {
+        // Card 1
+        nodes.push(upperLeft);
+      } else if (styleIndex === 1) {
+        // Card 2
+        nodes.push(lowerRightAboveButton);
+      } else if (styleIndex === 2) {
+        // Card 3
+        nodes.push(upperRight);
+      } else if (styleIndex === 3) {
+        // Card 4
+        nodes.push(upperLeft, lowerRightAboveButton);
+      }
+    });
+
+    return shuffle(nodes);
+  }
+
+  function nextNode(stickerWidth, stickerHeight) {
+    if (nodeDeck.length === 0) {
+      nodeDeck = buildNodeDeck(stickerWidth, stickerHeight);
+    }
+    return nodeDeck.pop();
   }
 
   function spawnSticker() {
@@ -621,18 +672,11 @@
       const stickerWidth = sticker.naturalWidth * scale;
       const stickerHeight = sticker.naturalHeight * scale;
 
-      const node = nextStickerNode();
+      const node = nextNode(stickerWidth, stickerHeight);
       if (!node) return;
 
-      const left = Math.max(
-        0,
-        Math.min(node.x * layerWidth - stickerWidth / 2, layerWidth - stickerWidth)
-      );
-
-      const top = Math.max(
-        0,
-        Math.min(node.y * layerHeight - stickerHeight / 2, layerHeight - stickerHeight)
-      );
+      const left = Math.max(0, Math.min(node.left, layerWidth - stickerWidth));
+      const top = Math.max(0, Math.min(node.top, layerHeight - stickerHeight));
 
       sticker.style.left = `${left}px`;
       sticker.style.top = `${top}px`;
@@ -645,7 +689,7 @@
 
   function initStickers() {
     stickerDeck = makeStickerDeck();
-    stickerNodeDeck = makeNodeDeck();
+    nodeDeck = [];
     lastScrollY = window.scrollY;
     accumulatedScroll = 0;
   }
@@ -674,6 +718,7 @@
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       buildBackgroundGrid();
+      nodeDeck = [];
     }, 150);
   });
 
