@@ -486,62 +486,9 @@
     <img class="lightbox-image" id="lightbox-img" src="" alt="">
   </div>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    function openLightbox(src) {
-      const lightbox = document.getElementById("lightbox");
-      const img = document.getElementById("lightbox-img");
-      img.src = src;
-      lightbox.style.display = "flex";
-    }
-
-    document.querySelector(".lightbox-close").onclick = function() {
-      document.getElementById("lightbox").style.display = "none";
-    };
-
-    document.getElementById("lightbox").onclick = function(e) {
-      if (e.target.id === "lightbox") {
-        this.style.display = "none";
-      }
-    };
-
-    function buildBackgroundGrid() {
-      const grid = document.getElementById("background-grid");
-      const tileWidth = 104;
-      const tileHeight = 158;
-      const totalImages = 41;
-      const extension = "jpg";
-
-      const cols = Math.ceil(window.innerWidth / tileWidth);
-      const rows = Math.ceil(window.innerHeight / tileHeight);
-      const totalTiles = cols * rows;
-
-      grid.innerHTML = "";
-      grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
-      grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
-
-      for (let i = 0; i < totalTiles; i++) {
-        const tile = document.createElement("div");
-        tile.className = "background-tile";
-
-        const imageNumber = Math.floor(Math.random() * totalImages) + 1;
-        const padded = String(imageNumber).padStart(2, "0");
-        tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
-
-        grid.appendChild(tile);
-      }
-    }
-
-    let resizeTimeout;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        buildBackgroundGrid();
-      }, 150);
-    });
-
-    buildBackgroundGrid();
+  <script>document.addEventListener("DOMContentLoaded", function () {
+  setRandomStickers();
+});
 
 function setRandomStickers() {
   const stickers = document.querySelectorAll(
@@ -555,8 +502,37 @@ function setRandomStickers() {
   });
 }
 
-setRandomStickers();
-    
+let lightboxImage = null;
+
+function openLightbox(src) {
+  lightboxImage = document.createElement("img");
+  lightboxImage.src = src;
+  lightboxImage.style.maxWidth = "90%";
+  lightboxImage.style.maxHeight = "90%";
+  lightboxImage.style.margin = "auto";
+  lightboxImage.style.display = "block";
+  
+  const lightboxContainer = document.createElement("div");
+  lightboxContainer.style.position = "fixed";
+  lightboxContainer.style.top = "0";
+  lightboxContainer.style.left = "0";
+  lightboxContainer.style.width = "100%";
+  lightboxContainer.style.height = "100%";
+  lightboxContainer.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+  lightboxContainer.style.display = "flex";
+  lightboxContainer.style.alignItems = "center";
+  lightboxContainer.style.justifyContent = "center";
+  lightboxContainer.style.zIndex = "1000";
+
+  lightboxContainer.appendChild(lightboxImage);
+
+  lightboxContainer.addEventListener("click", function () {
+    document.body.removeChild(lightboxContainer);
+  });
+
+  document.body.appendChild(lightboxContainer);
+}
   </script>
+  
 </body>
 </html>
