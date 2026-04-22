@@ -4,7 +4,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
   <meta charset="UTF-8" />
-  <title>BOOOPPY | A Cool Art Zine</title>
+  <title>BOPPY | A Cool Art Zine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -573,22 +573,22 @@
       const h = rect.height;
 
       nodes.push(
-        // upper left
+        // Header: upper left
         {
           left: left - stickerWidth * 0.20,
           top: top - stickerHeight * 0.20
         },
-        // lower off center to right
+        // Header: lower off-center right
         {
           left: left + w * 0.68 - stickerWidth * 0.5,
           top: top + h - stickerHeight * 0.35
         },
-        // upper right
+        // Header: upper right
         {
           left: left + w - stickerWidth * 0.80,
           top: top - stickerHeight * 0.20
         },
-        // lower left
+        // Header: lower left
         {
           left: left - stickerWidth * 0.15,
           top: top + h - stickerHeight * 0.35
@@ -603,8 +603,6 @@
       const top = rect.top - layerRect.top + window.scrollY;
       const w = rect.width;
       const h = rect.height;
-
-      const styleIndex = index % 4;
 
       const upperLeft = {
         left: left - stickerWidth * 0.18,
@@ -621,17 +619,19 @@
         top: top + h * 0.72 - stickerHeight * 0.5
       };
 
+      const styleIndex = index % 4;
+
       if (styleIndex === 0) {
-        // Card 1
+        // Card 1: upper left
         nodes.push(upperLeft);
       } else if (styleIndex === 1) {
-        // Card 2
+        // Card 2: lower right above purchase button
         nodes.push(lowerRightAboveButton);
       } else if (styleIndex === 2) {
-        // Card 3
+        // Card 3: upper right
         nodes.push(upperRight);
       } else if (styleIndex === 3) {
-        // Card 4
+        // Card 4: upper left + lower right above purchase button
         nodes.push(upperLeft, lowerRightAboveButton);
       }
     });
