@@ -56,23 +56,6 @@
       background-repeat: no-repeat;
     }
 
-    .sticker-layer {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .sticker {
-      position: absolute;
-      pointer-events: none;
-      user-select: none;
-      filter: drop-shadow(1px 3px 2px rgba(0, 0, 0, 0.28));
-      transform-origin: center center;
-      will-change: transform;
-    }
-
     header,
     .top-card,
     main,
@@ -297,8 +280,6 @@
   <div id="background-grid" class="background-grid"></div>
 
   <div class="site-wrapper">
-    <div id="sticker-layer" class="sticker-layer"></div>
-
     <header>
       <img src="boppy_header.png" alt="Header artwork" class="header-image" />
     </header>
@@ -463,277 +444,62 @@
     <img class="lightbox-image" id="lightbox-img" src="" alt="">
   </div>
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-  function openLightbox(src) {
-    const lightbox = document.getElementById("lightbox");
-    const img = document.getElementById("lightbox-img");
-    img.src = src;
-    lightbox.style.display = "flex";
-  }
-
-  document.querySelector(".lightbox-close").onclick = function() {
-    document.getElementById("lightbox").style.display = "none";
-  };
-
-  document.getElementById("lightbox").onclick = function(e) {
-    if (e.target.id === "lightbox") {
-      this.style.display = "none";
-    }
-  };
-
-  function buildBackgroundGrid() {
-    const grid = document.getElementById("background-grid");
-    const tileWidth = 104;
-    const tileHeight = 158;
-    const totalImages = 41;
-    const extension = "jpg";
-
-    const cols = Math.ceil(window.innerWidth / tileWidth);
-    const rows = Math.ceil(window.innerHeight / tileHeight);
-    const totalTiles = cols * rows;
-
-    grid.innerHTML = "";
-    grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
-    grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
-
-    for (let i = 0; i < totalTiles; i++) {
-      const tile = document.createElement("div");
-      tile.className = "background-tile";
-
-      const imageNumber = Math.floor(Math.random() * totalImages) + 1;
-      const padded = String(imageNumber).padStart(2, "0");
-      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
-
-      grid.appendChild(tile);
-    }
-  }
-
-  const stickerConfig = {
-    totalStickers: 20,
-    stickerPrefix: "sticker-",
-    stickerExtension: "png",
-    initialCount: 0,
-    maxOnPage: 20,
-    scrollSpawnEvery: 450,
-    spawnPerStep: 1,
-    minScale: 0.65,
-    maxScale: 0.82
-  };
-
-  let stickerSpawned = 0;
-  let accumulatedScroll = 0;
-  let lastScrollY = window.scrollY;
-  let stickerDeck = [];
-  let nodeDeck = [];
-
-  function makeStickerDeck() {
-    const deck = [];
-    for (let i = 1; i <= stickerConfig.totalStickers; i++) {
-      const padded = String(i).padStart(2, "0");
-      deck.push(`${stickerConfig.stickerPrefix}${padded}.${stickerConfig.stickerExtension}`);
+    function openLightbox(src) {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightbox-img");
+      img.src = src;
+      lightbox.style.display = "flex";
     }
 
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
+    document.querySelector(".lightbox-close").onclick = function() {
+      document.getElementById("lightbox").style.display = "none";
+    };
 
-    return deck;
-  }
-
-  function nextStickerPath() {
-    if (stickerDeck.length === 0) {
-      stickerDeck = makeStickerDeck();
-    }
-    return stickerDeck.pop();
-  }
-
-  function shuffle(array) {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-
-  function buildNodeDeck(stickerWidth, stickerHeight) {
-    const layer = document.getElementById("sticker-layer");
-    const layerRect = layer.getBoundingClientRect();
-    const nodes = [];
-
-    const header = document.querySelector(".header-image");
-    if (header) {
-      const rect = header.getBoundingClientRect();
-      const left = rect.left - layerRect.left;
-      const top = rect.top - layerRect.top + window.scrollY;
-      const w = rect.width;
-      const h = rect.height;
-
-      nodes.push(
-        // Header: upper left
-        {
-          left: left - stickerWidth * 0.20,
-          top: top - stickerHeight * 0.20
-        },
-        // Header: lower off-center right
-        {
-          left: left + w * 0.68 - stickerWidth * 0.5,
-          top: top + h - stickerHeight * 0.35
-        },
-        // Header: upper right
-        {
-          left: left + w - stickerWidth * 0.80,
-          top: top - stickerHeight * 0.20
-        },
-        // Header: lower left
-        {
-          left: left - stickerWidth * 0.15,
-          top: top + h - stickerHeight * 0.35
-        }
-      );
-    }
-
-    const cards = document.querySelectorAll(".product-card");
-    cards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const left = rect.left - layerRect.left;
-      const top = rect.top - layerRect.top + window.scrollY;
-      const w = rect.width;
-      const h = rect.height;
-
-      const upperLeft = {
-        left: left - stickerWidth * 0.18,
-        top: top - stickerHeight * 0.18
-      };
-
-      const upperRight = {
-        left: left + w - stickerWidth * 0.82,
-        top: top - stickerHeight * 0.18
-      };
-
-      const lowerRightAboveButton = {
-        left: left + w - stickerWidth * 0.82,
-        top: top + h * 0.72 - stickerHeight * 0.5
-      };
-
-      const styleIndex = index % 4;
-
-      if (styleIndex === 0) {
-        // Card 1: upper left
-        nodes.push(upperLeft);
-      } else if (styleIndex === 1) {
-        // Card 2: lower right above purchase button
-        nodes.push(lowerRightAboveButton);
-      } else if (styleIndex === 2) {
-        // Card 3: upper right
-        nodes.push(upperRight);
-      } else if (styleIndex === 3) {
-        // Card 4: upper left + lower right above purchase button
-        nodes.push(upperLeft, lowerRightAboveButton);
+    document.getElementById("lightbox").onclick = function(e) {
+      if (e.target.id === "lightbox") {
+        this.style.display = "none";
       }
+    };
+
+    function buildBackgroundGrid() {
+      const grid = document.getElementById("background-grid");
+      const tileWidth = 104;
+      const tileHeight = 158;
+      const totalImages = 41;
+      const extension = "jpg";
+
+      const cols = Math.ceil(window.innerWidth / tileWidth);
+      const rows = Math.ceil(window.innerHeight / tileHeight);
+      const totalTiles = cols * rows;
+
+      grid.innerHTML = "";
+      grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+      grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+
+      for (let i = 0; i < totalTiles; i++) {
+        const tile = document.createElement("div");
+        tile.className = "background-tile";
+
+        const imageNumber = Math.floor(Math.random() * totalImages) + 1;
+        const padded = String(imageNumber).padStart(2, "0");
+        tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+
+        grid.appendChild(tile);
+      }
+    }
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        buildBackgroundGrid();
+      }, 150);
     });
 
-    return shuffle(nodes);
-  }
-
-  function nextNode(stickerWidth, stickerHeight) {
-    if (nodeDeck.length === 0) {
-      nodeDeck = buildNodeDeck(stickerWidth, stickerHeight);
-    }
-    return nodeDeck.pop();
-  }
-
-  function spawnSticker() {
-    const layer = document.getElementById("sticker-layer");
-    if (!layer) return;
-    if (stickerSpawned >= stickerConfig.maxOnPage) return;
-
-    const sticker = document.createElement("img");
-    sticker.className = "sticker";
-    sticker.src = nextStickerPath();
-    sticker.alt = "";
-
-    const rotation = (Math.random() * 30) - 15;
-    const scale =
-      stickerConfig.minScale +
-      Math.random() * (stickerConfig.maxScale - stickerConfig.minScale);
-
-    sticker.onload = function() {
-      const layerWidth = layer.clientWidth;
-      const layerHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        window.innerHeight
-      );
-
-      const stickerWidth = sticker.naturalWidth * scale;
-      const stickerHeight = sticker.naturalHeight * scale;
-
-      const node = nextNode(stickerWidth, stickerHeight);
-      if (!node) return;
-
-      const left = Math.max(0, Math.min(node.left, layerWidth - stickerWidth));
-      const top = Math.max(0, Math.min(node.top, layerHeight - stickerHeight));
-
-      sticker.style.left = `${left}px`;
-      sticker.style.top = `${top}px`;
-      sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
-
-      layer.appendChild(sticker);
-      stickerSpawned += 1;
-    };
-  }
-
-  function initStickers() {
-    stickerDeck = makeStickerDeck();
-    nodeDeck = [];
-    lastScrollY = window.scrollY;
-    accumulatedScroll = 0;
-  }
-
-  function maybeSpawnStickersOnScroll() {
-    const currentY = window.scrollY;
-    const delta = Math.abs(currentY - lastScrollY);
-
-    accumulatedScroll += delta;
-    lastScrollY = currentY;
-
-    while (
-      accumulatedScroll >= stickerConfig.scrollSpawnEvery &&
-      stickerSpawned < stickerConfig.maxOnPage
-    ) {
-      for (let i = 0; i < stickerConfig.spawnPerStep; i++) {
-        spawnSticker();
-        if (stickerSpawned >= stickerConfig.maxOnPage) break;
-      }
-      accumulatedScroll -= stickerConfig.scrollSpawnEvery;
-    }
-  }
-
-  let resizeTimeout;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      buildBackgroundGrid();
-      nodeDeck = [];
-    }, 150);
-  });
-
-  let scrollTimeout;
-  window.addEventListener(
-    "scroll",
-    () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(maybeSpawnStickersOnScroll, 30);
-    },
-    { passive: true }
-  );
-
-  buildBackgroundGrid();
-  initStickers();
-</script>
+    buildBackgroundGrid();
+  </script>
 </body>
 </html>
