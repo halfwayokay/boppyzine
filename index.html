@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
   <meta charset="UTF-8" />
   <title>BOPPY | A Cool Art Zine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -31,6 +31,11 @@
       z-index: 1;
     }
 
+    .site-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
     .background-grid {
       position: fixed;
       inset: 0;
@@ -56,7 +61,7 @@
       inset: 0;
       z-index: 3;
       pointer-events: none;
-      overflow: visible;
+      overflow: hidden;
     }
 
     .sticker {
@@ -104,23 +109,6 @@
     }
 
     .top-card a {
-      color: inherit;
-      text-decoration: underline;
-      font-weight: 600;
-    }
-
-    h1 {
-      margin: 0 0 0.5rem;
-      font-size: 2rem;
-    }
-
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .subtitle a {
       color: inherit;
       text-decoration: underline;
       font-weight: 600;
@@ -211,14 +199,6 @@
       padding: 0.9rem 1rem;
       position: relative;
       z-index: 2;
-    }
-
-    .small-note .highlight {
-      background: transparent;
-      color: inherit;
-      padding: 0;
-      border-radius: 0;
-      display: inline;
     }
 
     .contact-banner {
@@ -315,453 +295,432 @@
 </head>
 <body>
   <div id="background-grid" class="background-grid"></div>
-  <div id="sticker-layer" class="sticker-layer"></div>
 
-  <header>
-    <img src="boppy_header.png" alt="Header artwork" class="header-image" />
-  </header>
+  <div class="site-wrapper">
+    <div id="sticker-layer" class="sticker-layer"></div>
 
-  <main>
-    <section>
-      <div class="product-grid">
-        <article class="product-card">
-          <img src="boppy-sizes.png" alt="Sizes" class="product-image" onclick="openLightbox(this.src)">
-          <h2 class="product-title">BOPPY “Sizes”</h2>
-          <p class="product-desc">
-            Sizes. What are they? FIND OUT!<br><br>
-            Includes a random sticker sheet!<br><br>
-            <strong>Free shipping!*</strong>
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="GKE47BTY24CJY" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <button type="submit" class="buy-button">Buy Sizes – $4</button>
-          </form>
-        </article>
+    <header>
+      <img src="boppy_header.png" alt="Header artwork" class="header-image" />
+    </header>
 
-        <article class="product-card">
-          <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" onclick="openLightbox(this.src)">
-          <h2 class="product-title">BOPPY “Grocery Store”</h2>
-          <p class="product-desc">
-            A grocery store experience that fits in your pocket!<br><br>
-            Includes a random sticker sheet!<br><br>
-            <strong>Free shipping!*</strong>
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="U86ZGCGZ6KFZE" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <button type="submit" class="buy-button">Buy Grocery Store – $4</button>
-          </form>
-        </article>
+    <main>
+      <section>
+        <div class="product-grid">
+          <article class="product-card">
+            <img src="boppy-sizes.png" alt="Sizes" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Sizes”</h2>
+            <p class="product-desc">
+              Sizes. What are they? FIND OUT!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free shipping!*</strong>
+            </p>
+            <div class="price">$4.00</div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="GKE47BTY24CJY" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Sizes – $4</button>
+            </form>
+          </article>
 
-        <article class="product-card">
-          <img src="boppy-private-time.png" alt="Private Time" class="product-image" onclick="openLightbox(this.src)">
-          <h2 class="product-title">BOPPY “Private Time”</h2>
-          <p class="product-desc">
-            Skill the chill pills. Take this instead!<br><br>
-            Includes a random sticker sheet!<br><br>
-            <strong>Free shipping!*</strong>
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="UN623JAF26P3Q" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <button type="submit" class="buy-button">Buy Private Time – $4</button>
-          </form>
-        </article>
-      </div>
+          <article class="product-card">
+            <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Grocery Store”</h2>
+            <p class="product-desc">
+              A grocery store experience that fits in your pocket!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free shipping!*</strong>
+            </p>
+            <div class="price">$4.00</div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="U86ZGCGZ6KFZE" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Grocery Store – $4</button>
+            </form>
+          </article>
 
-      <div class="top-card">
-        <p>
-          🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️
+          <article class="product-card">
+            <img src="boppy-private-time.png" alt="Private Time" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Private Time”</h2>
+            <p class="product-desc">
+              Skill the chill pills. Take this instead!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free shipping!*</strong>
+            </p>
+            <div class="price">$4.00</div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="UN623JAF26P3Q" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Private Time – $4</button>
+            </form>
+          </article>
+        </div>
+
+        <div class="top-card">
+          <p>🏄‍♀️ BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame! 🏄‍♀️</p>
+          <p>made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a></p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <img src="boppy-beverages.png" alt="Beverages" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Beverages”</h2>
+            <p class="product-desc">
+              Finally, a beverage you can read!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free shipping!*</strong>
+            </p>
+            <div class="price">$4.00</div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="6UQC9DXQCMGRQ" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Beverages – $4</button>
+            </form>
+          </article>
+
+          <article class="product-card">
+            <img src="boppy-yearbook.png" alt="Yearbook" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Yearbook”</h2>
+            <p class="product-desc">
+              A totally normal yearbook.<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free shipping!*</strong>
+            </p>
+            <div class="price">$4.00</div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="Z2CY2B7ELND5W" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Yearbook – $4</button>
+            </form>
+          </article>
+
+          <article class="product-card">
+            <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
+            <p class="product-desc">
+              A complete set of Official BOPPY Sticker Sheets Vol 1.<br><br>
+              Each one more bodacious than the last!<br><br>
+              Perfect for the BOPPY Sticker Zone!<br><br>
+              <strong>Free shipping!*</strong>
+            </p>
+            <div class="price">$7.00</div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="USYY4ZRYWHQ38" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Sticker Sheet Set Vol 1 – $7</button>
+            </form>
+          </article>
+
+          <article class="product-card">
+            <img src="boppy-all-of-it-01.png" alt="BOPPY: ALL OF IT" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY: ALL OF IT</h2>
+            <p class="product-desc">
+              One of every BOPPY and Official BOPPY Sticker Sheet.<br><br>
+              Good value!<br><br>
+              <strong>Free shipping!*</strong>
+            </p>
+            <div class="price">$24.00</div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="VW4XNRAXXCBZW" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy ALL OF IT – $24</button>
+            </form>
+          </article>
+        </div>
+
+        <p class="small-note">
+          <strong>*Free shipping for U.S. orders. I don't know how international shipping works 😔</strong>
         </p>
-        <p>
-          made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a>
-        </p>
-      </div>
 
-      <div class="product-grid">
-        <article class="product-card">
-          <img src="boppy-beverages.png" alt="Beverages" class="product-image" onclick="openLightbox(this.src)">
-          <h2 class="product-title">BOPPY “Beverages”</h2>
-          <p class="product-desc">
-            Finally, a beverage you can read!<br><br>
-            Includes a random sticker sheet!<br><br>
-            <strong>Free shipping!*</strong>
+        <div class="contact-banner">
+          <p class="contact-title">Keep in touch!</p>
+          <p class="contact-links">
+            <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
+            <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
           </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="6UQC9DXQCMGRQ" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <button type="submit" class="buy-button">Buy Beverages – $4</button>
-          </form>
-        </article>
+          <p class="contact-tagline">🖤 Please tag us! 🖤</p>
+        </div>
+      </section>
+    </main>
 
-        <article class="product-card">
-          <img src="boppy-yearbook.png" alt="Yearbook" class="product-image" onclick="openLightbox(this.src)">
-          <h2 class="product-title">BOPPY “Yearbook”</h2>
-          <p class="product-desc">
-            A totally normal yearbook.<br><br>
-            Includes a random sticker sheet!<br><br>
-            <strong>Free shipping!*</strong>
-          </p>
-          <div class="price">$4.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="Z2CY2B7ELND5W" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <button type="submit" class="buy-button">Buy Yearbook – $4</button>
-          </form>
-        </article>
-
-        <article class="product-card">
-          <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" onclick="openLightbox(this.src)">
-          <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
-          <p class="product-desc">
-            A complete set of Official BOPPY Sticker Sheets Vol 1.<br><br>
-            Each one more bodacious than the last!<br><br>
-            Perfect for the BOPPY Sticker Zone!<br><br>
-            <strong>Free shipping!*</strong>
-          </p>
-          <div class="price">$7.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="USYY4ZRYWHQ38" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <button type="submit" class="buy-button">Buy Sticker Sheet Set Vol 1 – $7</button>
-          </form>
-        </article>
-
-        <article class="product-card">
-          <img src="boppy-all-of-it-01.png" alt="BOPPY: ALL OF IT" class="product-image" onclick="openLightbox(this.src)">
-          <h2 class="product-title">BOPPY: ALL OF IT</h2>
-          <p class="product-desc">
-            One of every BOPPY and Official BOPPY Sticker Sheet.<br><br>
-            Good value!<br><br>
-            <strong>Free shipping!*</strong>
-          </p>
-          <div class="price">$24.00</div>
-          <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick" />
-            <input type="hidden" name="hosted_button_id" value="VW4XNRAXXCBZW" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <button type="submit" class="buy-button">Buy ALL OF IT – $24</button>
-          </form>
-        </article>
-      </div>
-
-      <p class="small-note">
-        <strong>*Free shipping for U.S. orders. I don't know how international shipping works 😔</strong>
+    <footer>
+      <p>
+        <span class="highlight">
+          &copy; <span id="year"></span> Hi, hello! Thanks for being here!
+        </span>
       </p>
-
-      <div class="contact-banner">
-        <p class="contact-title">Keep in touch!</p>
-        <p class="contact-links">
-          <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
-          <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
-        </p>
-        <p class="contact-tagline">🖤 Please tag us! 🖤</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>
-      <span class="highlight">
-        &copy; <span id="year"></span> Hi, hello! Thanks for being here!
-      </span>
-    </p>
-  </footer>
+    </footer>
+  </div>
 
   <div id="lightbox" class="lightbox">
     <span class="lightbox-close" aria-label="Close image">&times;</span>
     <img class="lightbox-image" id="lightbox-img" src="" alt="">
   </div>
 
-<script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-  function openLightbox(src) {
-    const lightbox = document.getElementById("lightbox");
-    const img = document.getElementById("lightbox-img");
-    img.src = src;
-    lightbox.style.display = "flex";
-  }
-
-  document.querySelector(".lightbox-close").onclick = function() {
-    document.getElementById("lightbox").style.display = "none";
-  };
-
-  document.getElementById("lightbox").onclick = function(e) {
-    if (e.target.id === "lightbox") {
-      this.style.display = "none";
-    }
-  };
-
-  function buildBackgroundGrid() {
-    const grid = document.getElementById("background-grid");
-    const tileWidth = 104;
-    const tileHeight = 158;
-    const totalImages = 41;
-    const extension = "jpg";
-
-    const cols = Math.ceil(window.innerWidth / tileWidth);
-    const rows = Math.ceil(window.innerHeight / tileHeight);
-    const totalTiles = cols * rows;
-
-    grid.innerHTML = "";
-    grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
-    grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
-
-    for (let i = 0; i < totalTiles; i++) {
-      const tile = document.createElement("div");
-      tile.className = "background-tile";
-
-      const imageNumber = Math.floor(Math.random() * totalImages) + 1;
-      const padded = String(imageNumber).padStart(2, "0");
-      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
-
-      grid.appendChild(tile);
-    }
-  }
-
-  const stickerConfig = {
-    totalStickers: 20,
-    stickerPrefix: "sticker-",
-    stickerExtension: "png",
-    initialCount: 0,
-    maxOnPage: 20,
-    scrollSpawnEvery: 450,
-    spawnPerStep: 1,
-    positionAttempts: 40,
-    stickerPadding: 12,
-    minScale: 0.65,
-    maxScale: 0.82
-  };
-
-  let stickerSpawned = 0;
-  let accumulatedScroll = 0;
-  let lastScrollY = window.scrollY;
-
-  let stickerDeck = [];
-  let placedStickerRects = [];
-
-  function makeStickerDeck() {
-    const deck = [];
-    for (let i = 1; i <= stickerConfig.totalStickers; i++) {
-      const padded = String(i).padStart(2, "0");
-      deck.push(`${stickerConfig.stickerPrefix}${padded}.${stickerConfig.stickerExtension}`);
+    function openLightbox(src) {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightbox-img");
+      img.src = src;
+      lightbox.style.display = "flex";
     }
 
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
-
-    return deck;
-  }
-
-  function nextStickerPath() {
-    if (stickerDeck.length === 0) {
-      stickerDeck = makeStickerDeck();
-    }
-    return stickerDeck.pop();
-  }
-
-  function rectsOverlap(a, b, padding = 0) {
-    return !(
-      a.right + padding < b.left ||
-      a.left > b.right + padding ||
-      a.bottom + padding < b.top ||
-      a.top > b.bottom + padding
-    );
-  }
-
-  function getStickerZones(layerWidth, layerHeight) {
-    return [
-      { x: 0, y: 0, w: layerWidth * 0.25, h: layerHeight * 0.2 },
-      { x: layerWidth * 0.75, y: 0, w: layerWidth * 0.25, h: layerHeight * 0.2 },
-
-      { x: 0, y: layerHeight * 0.8, w: layerWidth * 0.25, h: layerHeight * 0.2 },
-      { x: layerWidth * 0.75, y: layerHeight * 0.8, w: layerWidth * 0.25, h: layerHeight * 0.2 },
-
-      { x: 0, y: layerHeight * 0.2, w: layerWidth * 0.2, h: layerHeight * 0.6 },
-      { x: layerWidth * 0.8, y: layerHeight * 0.2, w: layerWidth * 0.2, h: layerHeight * 0.6 },
-
-      { x: layerWidth * 0.3, y: layerHeight * 0.25, w: layerWidth * 0.4, h: layerHeight * 0.2 },
-      { x: layerWidth * 0.3, y: layerHeight * 0.6, w: layerWidth * 0.4, h: layerHeight * 0.2 },
-
-      { x: layerWidth * 0.2, y: 200, w: layerWidth * 0.6, h: 120 },
-      { x: layerWidth * 0.2, y: layerHeight - 250, w: layerWidth * 0.6, h: 150 }
-    ];
-  }
-
-function findNonOverlappingPosition(layerWidth, layerHeight, stickerWidth, stickerHeight) {
-  const nodes = buildStickerNodes(stickerWidth, stickerHeight);
-
-  for (let attempt = 0; attempt < stickerConfig.positionAttempts; attempt++) {
-    if (nodes.length === 0) return null;
-
-    const node = nodes[Math.floor(Math.random() * nodes.length)];
-
-    const left = Math.max(0, Math.min(node.left, layerWidth - stickerWidth));
-    const top = Math.max(0, Math.min(node.top, layerHeight - stickerHeight));
-
-    const testRect = {
-      left,
-      top,
-      right: left + stickerWidth,
-      bottom: top + stickerHeight
+    document.querySelector(".lightbox-close").onclick = function() {
+      document.getElementById("lightbox").style.display = "none";
     };
 
-    const overlapsExisting = placedStickerRects.some(rect =>
-      rectsOverlap(testRect, rect, stickerConfig.stickerPadding)
-    );
-
-    if (!overlapsExisting) {
-      return testRect;
-    }
-  }
-
-  return null;
-}
-function getSpawnAnchors() {
-  return [
-    ...document.querySelectorAll(".header-image"),
-    ...document.querySelectorAll(".top-card"),
-    ...document.querySelectorAll(".product-card"),
-    ...document.querySelectorAll(".contact-banner"),
-    ...document.querySelectorAll("footer")
-  ];
-}
-
-function buildStickerNodes(stickerWidth, stickerHeight) {
-  const anchors = getSpawnAnchors();
-  const nodes = [];
-
-  anchors.forEach((el) => {
-    const rect = el.getBoundingClientRect();
-
-    const pageLeft = rect.left + window.scrollX;
-    const pageTop = rect.top + window.scrollY;
-    const w = rect.width;
-    const h = rect.height;
-
-    const offset = 18;
-
-    nodes.push(
-      { left: pageLeft - stickerWidth * 0.35, top: pageTop - stickerHeight * 0.35 },
-      { left: pageLeft + w - stickerWidth * 0.65, top: pageTop - stickerHeight * 0.35 },
-
-      { left: pageLeft - stickerWidth * 0.45, top: pageTop + h * 0.5 - stickerHeight * 0.5 },
-      { left: pageLeft + w - stickerWidth * 0.55, top: pageTop + h * 0.5 - stickerHeight * 0.5 },
-
-      { left: pageLeft - stickerWidth * 0.35, top: pageTop + h - stickerHeight * 0.65 },
-      { left: pageLeft + w - stickerWidth * 0.65, top: pageTop + h - stickerHeight * 0.65 },
-
-      { left: pageLeft + offset, top: pageTop - stickerHeight * 0.45 },
-      { left: pageLeft + w - stickerWidth - offset, top: pageTop + h - stickerHeight * 0.55 }
-    );
-  });
-
-  return nodes;
-}
-  function spawnSticker() {
-    const layer = document.getElementById("sticker-layer");
-    if (!layer) return;
-    if (stickerSpawned >= stickerConfig.maxOnPage) return;
-
-    const sticker = document.createElement("img");
-    sticker.className = "sticker";
-    sticker.src = nextStickerPath();
-    sticker.alt = "";
-
-    const rotation = (Math.random() * 30) - 15;
-    const scale =
-      stickerConfig.minScale +
-      Math.random() * (stickerConfig.maxScale - stickerConfig.minScale);
-
-    sticker.onload = function() {
-      const layerWidth = layer.clientWidth;
-      const layerHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-        window.innerHeight
-      );
-
-      const stickerWidth = sticker.naturalWidth * scale;
-      const stickerHeight = sticker.naturalHeight * scale;
-
-      const pos = findNonOverlappingPosition(
-        layerWidth,
-        layerHeight,
-        stickerWidth,
-        stickerHeight
-      );
-
-      if (!pos) return;
-
-      sticker.style.left = `${pos.left}px`;
-      sticker.style.top = `${pos.top}px`;
-      sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
-
-      layer.appendChild(sticker);
-
-      placedStickerRects.push(pos);
-      stickerSpawned += 1;
-    };
-  }
-
-  function initStickers() {
-    stickerDeck = makeStickerDeck();
-    placedStickerRects = [];
-    lastScrollY = window.scrollY;
-    accumulatedScroll = 0;
-  }
-
-  function maybeSpawnStickersOnScroll() {
-    const currentY = window.scrollY;
-    const delta = Math.abs(currentY - lastScrollY);
-
-    accumulatedScroll += delta;
-    lastScrollY = currentY;
-
-    while (
-      accumulatedScroll >= stickerConfig.scrollSpawnEvery &&
-      stickerSpawned < stickerConfig.maxOnPage
-    ) {
-      for (let i = 0; i < stickerConfig.spawnPerStep; i++) {
-        spawnSticker();
-        if (stickerSpawned >= stickerConfig.maxOnPage) break;
+    document.getElementById("lightbox").onclick = function(e) {
+      if (e.target.id === "lightbox") {
+        this.style.display = "none";
       }
-      accumulatedScroll -= stickerConfig.scrollSpawnEvery;
+    };
+
+    function buildBackgroundGrid() {
+      const grid = document.getElementById("background-grid");
+      const tileWidth = 104;
+      const tileHeight = 158;
+      const totalImages = 41;
+      const extension = "jpg";
+
+      const cols = Math.ceil(window.innerWidth / tileWidth);
+      const rows = Math.ceil(window.innerHeight / tileHeight);
+      const totalTiles = cols * rows;
+
+      grid.innerHTML = "";
+      grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+      grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+
+      for (let i = 0; i < totalTiles; i++) {
+        const tile = document.createElement("div");
+        tile.className = "background-tile";
+        const imageNumber = Math.floor(Math.random() * totalImages) + 1;
+        const padded = String(imageNumber).padStart(2, "0");
+        tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+        grid.appendChild(tile);
+      }
     }
-  }
 
-  let resizeTimeout;
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(buildBackgroundGrid, 150);
-  });
+    const stickerConfig = {
+      totalStickers: 20,
+      stickerPrefix: "sticker-",
+      stickerExtension: "png",
+      initialCount: 0,
+      maxOnPage: 20,
+      scrollSpawnEvery: 450,
+      spawnPerStep: 1,
+      positionAttempts: 40,
+      stickerPadding: 12,
+      minScale: 0.65,
+      maxScale: 0.82
+    };
 
-  let scrollTimeout;
-  window.addEventListener(
-    "scroll",
-    () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(maybeSpawnStickersOnScroll, 30);
-    },
-    { passive: true }
-  );
+    let stickerSpawned = 0;
+    let accumulatedScroll = 0;
+    let lastScrollY = window.scrollY;
+    let stickerDeck = [];
+    let placedStickerRects = [];
 
-  buildBackgroundGrid();
-  initStickers();
-</script>
+    function makeStickerDeck() {
+      const deck = [];
+      for (let i = 1; i <= stickerConfig.totalStickers; i++) {
+        const padded = String(i).padStart(2, "0");
+        deck.push(`${stickerConfig.stickerPrefix}${padded}.${stickerConfig.stickerExtension}`);
+      }
+
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+
+      return deck;
+    }
+
+    function nextStickerPath() {
+      if (stickerDeck.length === 0) {
+        stickerDeck = makeStickerDeck();
+      }
+      return stickerDeck.pop();
+    }
+
+    function rectsOverlap(a, b, padding = 0) {
+      return !(
+        a.right + padding < b.left ||
+        a.left > b.right + padding ||
+        a.bottom + padding < b.top ||
+        a.top > b.bottom + padding
+      );
+    }
+
+    function getSpawnAnchors() {
+      return [
+        ...document.querySelectorAll(".header-image"),
+        ...document.querySelectorAll(".top-card"),
+        ...document.querySelectorAll(".product-card"),
+        ...document.querySelectorAll(".contact-banner"),
+        ...document.querySelectorAll("footer")
+      ];
+    }
+
+    function buildStickerNodes(stickerWidth, stickerHeight) {
+      const layer = document.getElementById("sticker-layer");
+      const layerRect = layer.getBoundingClientRect();
+      const anchors = getSpawnAnchors();
+      const nodes = [];
+
+      anchors.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+
+        const localLeft = rect.left - layerRect.left;
+        const localTop = rect.top - layerRect.top + window.scrollY;
+        const w = rect.width;
+        const h = rect.height;
+        const offset = 18;
+
+        nodes.push(
+          { left: localLeft - stickerWidth * 0.35, top: localTop - stickerHeight * 0.35 },
+          { left: localLeft + w - stickerWidth * 0.65, top: localTop - stickerHeight * 0.35 },
+
+          { left: localLeft - stickerWidth * 0.45, top: localTop + h * 0.5 - stickerHeight * 0.5 },
+          { left: localLeft + w - stickerWidth * 0.55, top: localTop + h * 0.5 - stickerHeight * 0.5 },
+
+          { left: localLeft - stickerWidth * 0.35, top: localTop + h - stickerHeight * 0.65 },
+          { left: localLeft + w - stickerWidth * 0.65, top: localTop + h - stickerHeight * 0.65 },
+
+          { left: localLeft + offset, top: localTop - stickerHeight * 0.45 },
+          { left: localLeft + w - stickerWidth - offset, top: localTop + h - stickerHeight * 0.55 }
+        );
+      });
+
+      return nodes;
+    }
+
+    function findNonOverlappingPosition(layerWidth, layerHeight, stickerWidth, stickerHeight) {
+      const nodes = buildStickerNodes(stickerWidth, stickerHeight);
+
+      for (let attempt = 0; attempt < stickerConfig.positionAttempts; attempt++) {
+        if (nodes.length === 0) return null;
+
+        const node = nodes[Math.floor(Math.random() * nodes.length)];
+
+        const left = Math.max(0, Math.min(node.left, layerWidth - stickerWidth));
+        const top = Math.max(0, Math.min(node.top, layerHeight - stickerHeight));
+
+        const testRect = {
+          left,
+          top,
+          right: left + stickerWidth,
+          bottom: top + stickerHeight
+        };
+
+        const overlapsExisting = placedStickerRects.some(rect =>
+          rectsOverlap(testRect, rect, stickerConfig.stickerPadding)
+        );
+
+        if (!overlapsExisting) {
+          return testRect;
+        }
+      }
+
+      return null;
+    }
+
+    function spawnSticker() {
+      const layer = document.getElementById("sticker-layer");
+      if (!layer) return;
+      if (stickerSpawned >= stickerConfig.maxOnPage) return;
+
+      const sticker = document.createElement("img");
+      sticker.className = "sticker";
+      sticker.src = nextStickerPath();
+      sticker.alt = "";
+
+      const rotation = (Math.random() * 30) - 15;
+      const scale = stickerConfig.minScale + Math.random() * (stickerConfig.maxScale - stickerConfig.minScale);
+
+      sticker.onload = function() {
+        const layerWidth = layer.clientWidth;
+        const layerHeight = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          window.innerHeight
+        );
+
+        const stickerWidth = sticker.naturalWidth * scale;
+        const stickerHeight = sticker.naturalHeight * scale;
+
+        const pos = findNonOverlappingPosition(
+          layerWidth,
+          layerHeight,
+          stickerWidth,
+          stickerHeight
+        );
+
+        if (!pos) return;
+
+        sticker.style.left = `${pos.left}px`;
+        sticker.style.top = `${pos.top}px`;
+        sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
+
+        layer.appendChild(sticker);
+        placedStickerRects.push(pos);
+        stickerSpawned += 1;
+      };
+    }
+
+    function initStickers() {
+      stickerDeck = makeStickerDeck();
+      placedStickerRects = [];
+      lastScrollY = window.scrollY;
+      accumulatedScroll = 0;
+    }
+
+    function maybeSpawnStickersOnScroll() {
+      const currentY = window.scrollY;
+      const delta = Math.abs(currentY - lastScrollY);
+
+      accumulatedScroll += delta;
+      lastScrollY = currentY;
+
+      while (
+        accumulatedScroll >= stickerConfig.scrollSpawnEvery &&
+        stickerSpawned < stickerConfig.maxOnPage
+      ) {
+        for (let i = 0; i < stickerConfig.spawnPerStep; i++) {
+          spawnSticker();
+          if (stickerSpawned >= stickerConfig.maxOnPage) break;
+        }
+        accumulatedScroll -= stickerConfig.scrollSpawnEvery;
+      }
+    }
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        buildBackgroundGrid();
+      }, 150);
+    });
+
+    let scrollTimeout;
+    window.addEventListener(
+      "scroll",
+      () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(maybeSpawnStickersOnScroll, 30);
+      },
+      { passive: true }
+    );
+
+    buildBackgroundGrid();
+    initStickers();
+  </script>
 </body>
 </html>
