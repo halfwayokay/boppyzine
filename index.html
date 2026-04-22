@@ -129,50 +129,40 @@
     
 .sticker-right-corner {
   position: absolute;
-
-  top: -40px;    
-  right: -40px; 
-
+  top: -40px;
+  right: -40px;
   width: 125px;
   height: auto;
-
   transform: rotate(12deg);
   pointer-events: none;
   z-index: 5;
-     filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
 }
 
 .sticker-right-middle {
   position: absolute;
-
-  top: 60px;    
-  right: -40px; 
-
+  top: 60px;
+  right: -40px;
   width: 125px;
   height: auto;
-
   transform: rotate(12deg);
   pointer-events: none;
   z-index: 5;
-     filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
 }
-
-
 
 .sticker-left-corner {
   position: absolute;
-
-  top: -40px;    
-  right: 100px; 
-
+  top: -40px;
+  left: -40px;
   width: 125px;
   height: auto;
-
-  transform: rotate(12deg);
+  transform: rotate(-12deg);
   pointer-events: none;
   z-index: 5;
-     filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
 }
+
 
     .product-image {
       width: 100%;
@@ -553,18 +543,19 @@
 
     buildBackgroundGrid();
 
-    function setRandomCornerSticker() {
-  const sticker = document.querySelector(".sticker-right-corner");
-  if (!sticker) return;
+function setRandomStickers() {
+  const stickers = document.querySelectorAll(
+    ".sticker-right-corner, .sticker-left-corner, .sticker-right-middle"
+  );
 
-  const totalStickers = 20; // change if you add more
-  const randomIndex = Math.floor(Math.random() * totalStickers) + 1;
-
-  const padded = String(randomIndex).padStart(2, "0");
-  sticker.src = `sticker-${padded}.png`;
+  stickers.forEach((sticker) => {
+    const randomIndex = Math.floor(Math.random() * 20) + 1;
+    const padded = String(randomIndex).padStart(2, "0");
+    sticker.src = `sticker-${padded}.png`;
+  });
 }
 
-setRandomCornerSticker();
+setRandomStickers();
     
   </script>
 </body>
