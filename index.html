@@ -124,7 +124,16 @@
       position: relative;
       z-index: 2;
     }
-
+.sticker-right-corner {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  width: 90px;
+  height: auto;
+  transform: rotate(12deg);
+  pointer-events: none;
+  z-index: 3;
+}
     .product-image {
       width: 100%;
       border-radius: 18px;
@@ -288,6 +297,7 @@
       <section>
         <div class="product-grid">
           <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-right-corner">
             <img src="boppy-sizes.png" alt="Sizes" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">BOPPY “Sizes”</h2>
             <p class="product-desc">
