@@ -32,8 +32,8 @@
     }
 
     .site-wrapper {
-      position: relative;
-      overflow: hidden;
+  position: relative;
+  overflow: visible;
     }
 
     .background-grid {
@@ -126,13 +126,16 @@
     }
 .sticker-right-corner {
   position: absolute;
-  top: -18px;
-  right: -18px;
-  width: 150px;
+
+  top: -40px;     /* was -18px */
+  right: -40px;   /* was -18px */
+
+  width: 90px;
   height: auto;
+
   transform: rotate(12deg);
   pointer-events: none;
-  z-index: 3;
+  z-index: 5;
     filter: drop-shadow(1 3px 2px rgba(0, 0, 0, 0.35));
 }
     .product-image {
