@@ -134,7 +134,8 @@
       height: auto;
       transform: rotate(12deg);
       pointer-events: none;
-      z-index: 5;
+      position: absolute;
+  z-index: 10;
       filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
     }
 
@@ -146,7 +147,8 @@
       height: auto;
       transform: rotate(12deg);
       pointer-events: none;
-      z-index: 5;
+      position: absolute;
+  z-index: 10;
       filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
     }
 
@@ -158,7 +160,8 @@
       height: auto;
       transform: rotate(-12deg);
       pointer-events: none;
-      z-index: 5;
+    position: absolute;
+  z-index: 10;
       filter: drop-shadow(2px 3px 2px rgba(0, 0, 0, 0.5));
     }
 
@@ -489,77 +492,96 @@
     <img class="lightbox-image" id="lightbox-img" src="" alt="">
   </div>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    function setRandomStickers() {
-      const stickers = document.querySelectorAll(
-        ".sticker-right-corner, .sticker-left-corner, .sticker-right-middle"
-      );
+  function setRandomStickers() {
+    const stickers = document.querySelectorAll(
+      ".sticker-right-corner, .sticker-left-corner, .sticker-right-middle"
+    );
 
-      stickers.forEach((sticker) => {
-        const randomIndex = Math.floor(Math.random() * 20) + 1;
-        const padded = String(randomIndex).padStart(2, "0");
-        sticker.src = `sticker-${padded}.png`;
-      });
+    const stickerPool = [];
+    for (let i = 1; i <= 20; i++) {
+      stickerPool.push(`sticker-${String(i).padStart(2, "0")}.png`);
     }
 
-    function openLightbox(src) {
-      const lightbox = document.getElementById("lightbox");
-      const img = document.getElementById("lightbox-img");
-      img.src = src;
-      lightbox.style.display = "flex";
+    for (let i = stickerPool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [stickerPool[i], stickerPool[j]] = [stickerPool[j], stickerPool[i]];
     }
 
-    document.querySelector(".lightbox-close").onclick = function() {
-      document.getElementById("lightbox").style.display = "none";
-    };
+    stickers.forEach((sticker, index) => {
+      sticker.src = stickerPool[index];
 
-    document.getElementById("lightbox").onclick = function(e) {
-      if (e.target.id === "lightbox") {
-        this.style.display = "none";
+      let rotation = 0;
+
+      if (sticker.classList.contains("sticker-left-corner")) {
+        rotation = -8 - Math.random() * 10;
+      } else {
+        rotation = 8 + Math.random() * 10;
       }
-    };
 
-    function buildBackgroundGrid() {
-      const grid = document.getElementById("background-grid");
-      const tileWidth = 104;
-      const tileHeight = 158;
-      const totalImages = 41;
-      const extension = "jpg";
+      sticker.style.transform = `rotate(${rotation}deg)`;
+      sticker.style.zIndex = "10";
+    });
+  }
 
-      const cols = Math.ceil(window.innerWidth / tileWidth);
-      const rows = Math.ceil(window.innerHeight / tileHeight);
-      const totalTiles = cols * rows;
+  function openLightbox(src) {
+    const lightbox = document.getElementById("lightbox");
+    const img = document.getElementById("lightbox-img");
+    img.src = src;
+    lightbox.style.display = "flex";
+  }
 
-      grid.innerHTML = "";
-      grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
-      grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+  document.querySelector(".lightbox-close").onclick = function() {
+    document.getElementById("lightbox").style.display = "none";
+  };
 
-      for (let i = 0; i < totalTiles; i++) {
-        const tile = document.createElement("div");
-        tile.className = "background-tile";
-
-        const imageNumber = Math.floor(Math.random() * totalImages) + 1;
-        const padded = String(imageNumber).padStart(2, "0");
-        tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
-
-        grid.appendChild(tile);
-      }
+  document.getElementById("lightbox").onclick = function(e) {
+    if (e.target.id === "lightbox") {
+      this.style.display = "none";
     }
+  };
 
-    document.addEventListener("DOMContentLoaded", function() {
-      setRandomStickers();
+  function buildBackgroundGrid() {
+    const grid = document.getElementById("background-grid");
+    const tileWidth = 104;
+    const tileHeight = 158;
+    const totalImages = 41;
+    const extension = "jpg";
+
+    const cols = Math.ceil(window.innerWidth / tileWidth);
+    const rows = Math.ceil(window.innerHeight / tileHeight);
+    const totalTiles = cols * rows;
+
+    grid.innerHTML = "";
+    grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+    grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+
+    for (let i = 0; i < totalTiles; i++) {
+      const tile = document.createElement("div");
+      tile.className = "background-tile";
+
+      const imageNumber = Math.floor(Math.random() * totalImages) + 1;
+      const padded = String(imageNumber).padStart(2, "0");
+      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+
+      grid.appendChild(tile);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    setRandomStickers();
+    buildBackgroundGrid();
+  });
+
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
       buildBackgroundGrid();
-    });
-
-    let resizeTimeout;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        buildBackgroundGrid();
-      }, 150);
-    });
-  </script>
+    }, 150);
+  });
+</script>
 </body>
 </html>
