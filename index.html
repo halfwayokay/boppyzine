@@ -133,6 +133,7 @@
   transform: rotate(12deg);
   pointer-events: none;
   z-index: 3;
+    filter: drop-shadow(1 3px 2px rgba(0, 0, 0, 0.35));
 }
     .product-image {
       width: 100%;
@@ -510,6 +511,20 @@
     });
 
     buildBackgroundGrid();
+
+    function setRandomCornerSticker() {
+  const sticker = document.querySelector(".sticker-right-corner");
+  if (!sticker) return;
+
+  const totalStickers = 20; // change if you add more
+  const randomIndex = Math.floor(Math.random() * totalStickers) + 1;
+
+  const padded = String(randomIndex).padStart(2, "0");
+  sticker.src = `sticker-${padded}.png`;
+}
+
+setRandomCornerSticker();
+    
   </script>
 </body>
 </html>
