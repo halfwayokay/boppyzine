@@ -602,34 +602,76 @@
     ];
   }
 
-  function findNonOverlappingPosition(layerWidth, layerHeight, stickerWidth, stickerHeight) {
-    const zones = getStickerZones(layerWidth, layerHeight);
+function findNonOverlappingPosition(layerWidth, layerHeight, stickerWidth, stickerHeight) {
+  const nodes = buildStickerNodes(stickerWidth, stickerHeight);
 
-    for (let attempt = 0; attempt < stickerConfig.positionAttempts; attempt++) {
-      const zone = zones[Math.floor(Math.random() * zones.length)];
+  for (let attempt = 0; attempt < stickerConfig.positionAttempts; attempt++) {
+    if (nodes.length === 0) return null;
 
-      const left = zone.x + Math.random() * Math.max(10, zone.w - stickerWidth);
-      const top = zone.y + Math.random() * Math.max(10, zone.h - stickerHeight);
+    const node = nodes[Math.floor(Math.random() * nodes.length)];
 
-      const testRect = {
-        left,
-        top,
-        right: left + stickerWidth,
-        bottom: top + stickerHeight
-      };
+    const left = Math.max(0, Math.min(node.left, layerWidth - stickerWidth));
+    const top = Math.max(0, Math.min(node.top, layerHeight - stickerHeight));
 
-      const overlapsExisting = placedStickerRects.some(rect =>
-        rectsOverlap(testRect, rect, stickerConfig.stickerPadding)
-      );
+    const testRect = {
+      left,
+      top,
+      right: left + stickerWidth,
+      bottom: top + stickerHeight
+    };
 
-      if (!overlapsExisting) {
-        return testRect;
-      }
+    const overlapsExisting = placedStickerRects.some(rect =>
+      rectsOverlap(testRect, rect, stickerConfig.stickerPadding)
+    );
+
+    if (!overlapsExisting) {
+      return testRect;
     }
-
-    return null;
   }
 
+  return null;
+}
+function getSpawnAnchors() {
+  return [
+    ...document.querySelectorAll(".header-image"),
+    ...document.querySelectorAll(".top-card"),
+    ...document.querySelectorAll(".product-card"),
+    ...document.querySelectorAll(".contact-banner"),
+    ...document.querySelectorAll("footer")
+  ];
+}
+
+function buildStickerNodes(stickerWidth, stickerHeight) {
+  const anchors = getSpawnAnchors();
+  const nodes = [];
+
+  anchors.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+
+    const pageLeft = rect.left + window.scrollX;
+    const pageTop = rect.top + window.scrollY;
+    const w = rect.width;
+    const h = rect.height;
+
+    const offset = 18;
+
+    nodes.push(
+      { left: pageLeft - stickerWidth * 0.35, top: pageTop - stickerHeight * 0.35 },
+      { left: pageLeft + w - stickerWidth * 0.65, top: pageTop - stickerHeight * 0.35 },
+
+      { left: pageLeft - stickerWidth * 0.45, top: pageTop + h * 0.5 - stickerHeight * 0.5 },
+      { left: pageLeft + w - stickerWidth * 0.55, top: pageTop + h * 0.5 - stickerHeight * 0.5 },
+
+      { left: pageLeft - stickerWidth * 0.35, top: pageTop + h - stickerHeight * 0.65 },
+      { left: pageLeft + w - stickerWidth * 0.65, top: pageTop + h - stickerHeight * 0.65 },
+
+      { left: pageLeft + offset, top: pageTop - stickerHeight * 0.45 },
+      { left: pageLeft + w - stickerWidth - offset, top: pageTop + h - stickerHeight * 0.55 }
+    );
+  });
+
+  return nodes;
+}
   function spawnSticker() {
     const layer = document.getElementById("sticker-layer");
     if (!layer) return;
