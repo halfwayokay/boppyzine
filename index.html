@@ -501,9 +501,11 @@
     for (let i = 0; i < totalTiles; i++) {
       const tile = document.createElement("div");
       tile.className = "background-tile";
+
       const imageNumber = Math.floor(Math.random() * totalImages) + 1;
       const padded = String(imageNumber).padStart(2, "0");
       tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+
       grid.appendChild(tile);
     }
   }
@@ -516,7 +518,6 @@
     maxOnPage: 20,
     scrollSpawnEvery: 450,
     spawnPerStep: 1,
-    stickerPadding: 10,
     minScale: 0.65,
     maxScale: 0.82
   };
@@ -525,7 +526,7 @@
   let accumulatedScroll = 0;
   let lastScrollY = window.scrollY;
   let stickerDeck = [];
-  let placedStickerRects = [];
+  let stickerNodeDeck = [];
 
   function makeStickerDeck() {
     const deck = [];
@@ -549,85 +550,49 @@
     return stickerDeck.pop();
   }
 
-  function rectsOverlap(a, b, padding = 0) {
-    return !(
-      a.right + padding < b.left ||
-      a.left > b.right + padding ||
-      a.bottom + padding < b.top ||
-      a.top > b.bottom + padding
-    );
-  }
+  function makeNodeDeck() {
+    const nodes = [
+      { x: 0.08, y: 0.06 },
+      { x: 0.92, y: 0.06 },
+      { x: 0.05, y: 0.18 },
+      { x: 0.95, y: 0.18 },
 
-  function getSpawnAnchors() {
-    return [
-      ...document.querySelectorAll(".header-image"),
-      ...document.querySelectorAll(".top-card"),
-      ...document.querySelectorAll(".product-card"),
-      ...document.querySelectorAll(".small-note"),
-      ...document.querySelectorAll(".contact-banner"),
-      ...document.querySelectorAll("footer")
+      { x: 0.28, y: 0.28 },
+      { x: 0.72, y: 0.28 },
+      { x: 0.50, y: 0.38 },
+
+      { x: 0.04, y: 0.45 },
+
+      { x: 0.30, y: 0.52 },
+      { x: 0.70, y: 0.52 },
+
+      { x: 0.25, y: 0.65 },
+      { x: 0.75, y: 0.65 },
+
+      { x: 0.30, y: 0.78 },
+
+      { x: 0.10, y: 0.82 },
+      { x: 0.60, y: 0.88 },
+
+      { x: 0.50, y: 0.92 },
+
+      { x: 0.15, y: 0.96 },
+      { x: 0.85, y: 0.96 }
     ];
-  }
-
-  function buildStickerNodes(stickerWidth, stickerHeight) {
-    const layer = document.getElementById("sticker-layer");
-    const layerRect = layer.getBoundingClientRect();
-    const anchors = getSpawnAnchors();
-    const nodes = [];
-
-    anchors.forEach((el) => {
-      const rect = el.getBoundingClientRect();
-
-      const left = rect.left - layerRect.left;
-      const top = rect.top - layerRect.top + window.scrollY;
-      const w = rect.width;
-      const h = rect.height;
-
-      // corners + side-midpoints only
-      nodes.push(
-        { left: left - stickerWidth * 0.35, top: top - stickerHeight * 0.35 },
-        { left: left + w - stickerWidth * 0.65, top: top - stickerHeight * 0.35 },
-
-        { left: left - stickerWidth * 0.45, top: top + h * 0.5 - stickerHeight * 0.5 },
-        { left: left + w - stickerWidth * 0.55, top: top + h * 0.5 - stickerHeight * 0.5 },
-
-        { left: left - stickerWidth * 0.35, top: top + h - stickerHeight * 0.65 },
-        { left: left + w - stickerWidth * 0.65, top: top + h - stickerHeight * 0.65 }
-      );
-    });
-
-    return nodes;
-  }
-
-  function findNonOverlappingPosition(layerWidth, layerHeight, stickerWidth, stickerHeight) {
-    const nodes = buildStickerNodes(stickerWidth, stickerHeight);
 
     for (let i = nodes.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
     }
 
-    for (const node of nodes) {
-      const left = Math.max(0, Math.min(node.left, layerWidth - stickerWidth));
-      const top = Math.max(0, Math.min(node.top, layerHeight - stickerHeight));
+    return nodes;
+  }
 
-      const testRect = {
-        left,
-        top,
-        right: left + stickerWidth,
-        bottom: top + stickerHeight
-      };
-
-      const overlapsExisting = placedStickerRects.some((rect) =>
-        rectsOverlap(testRect, rect, stickerConfig.stickerPadding)
-      );
-
-      if (!overlapsExisting) {
-        return testRect;
-      }
+  function nextStickerNode() {
+    if (stickerNodeDeck.length === 0) {
+      stickerNodeDeck = makeNodeDeck();
     }
-
-    return null;
+    return stickerNodeDeck.pop();
   }
 
   function spawnSticker() {
@@ -656,28 +621,31 @@
       const stickerWidth = sticker.naturalWidth * scale;
       const stickerHeight = sticker.naturalHeight * scale;
 
-      const pos = findNonOverlappingPosition(
-        layerWidth,
-        layerHeight,
-        stickerWidth,
-        stickerHeight
+      const node = nextStickerNode();
+      if (!node) return;
+
+      const left = Math.max(
+        0,
+        Math.min(node.x * layerWidth - stickerWidth / 2, layerWidth - stickerWidth)
       );
 
-      if (!pos) return;
+      const top = Math.max(
+        0,
+        Math.min(node.y * layerHeight - stickerHeight / 2, layerHeight - stickerHeight)
+      );
 
-      sticker.style.left = `${pos.left}px`;
-      sticker.style.top = `${pos.top}px`;
+      sticker.style.left = `${left}px`;
+      sticker.style.top = `${top}px`;
       sticker.style.transform = `rotate(${rotation}deg) scale(${scale})`;
 
       layer.appendChild(sticker);
-      placedStickerRects.push(pos);
       stickerSpawned += 1;
     };
   }
 
   function initStickers() {
     stickerDeck = makeStickerDeck();
-    placedStickerRects = [];
+    stickerNodeDeck = makeNodeDeck();
     lastScrollY = window.scrollY;
     accumulatedScroll = 0;
   }
