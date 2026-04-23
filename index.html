@@ -570,32 +570,68 @@ filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.85));
     }
   };
 
-  function buildBackgroundGrid() {
-    const grid = document.getElementById("background-grid");
-    const tileWidth = 104;
-    const tileHeight = 158;
-    const totalImages = 41;
-    const extension = "jpg";
+<script>
+function buildBackgroundGrid() {
+  const grid = document.getElementById("background-grid");
+  const tileWidth = 104;
+  const tileHeight = 158;
+  const totalImages = 41;
+  const extension = "jpg";
 
-    const cols = Math.ceil(window.innerWidth / tileWidth);
-    const rows = Math.ceil(window.innerHeight / tileHeight);
-    const totalTiles = cols * rows;
+  const cols = Math.ceil(window.innerWidth / tileWidth);
+  const rows = Math.ceil(window.innerHeight / tileHeight);
+  const totalTiles = cols * rows;
 
-    grid.innerHTML = "";
-    grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
-    grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+  grid.innerHTML = "";
+  grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+  grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
 
-    for (let i = 0; i < totalTiles; i++) {
+  const placedImages = [];
+
+  function getRandomImageExcluding(excluded) {
+    const options = [];
+
+    for (let i = 1; i <= totalImages; i++) {
+      if (!excluded.includes(i)) {
+        options.push(i);
+      }
+    }
+
+    const randomIndex = Math.floor(Math.random() * options.length);
+    return options[randomIndex];
+  }
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
       const tile = document.createElement("div");
       tile.className = "background-tile";
 
-      const imageNumber = Math.floor(Math.random() * totalImages) + 1;
-      const padded = String(imageNumber).padStart(2, "0");
-      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+      const excluded = [];
 
+      // left neighbor
+      if (col > 0) {
+        excluded.push(placedImages[row][col - 1]);
+      }
+
+      // top neighbor
+      if (row > 0) {
+        excluded.push(placedImages[row - 1][col]);
+      }
+
+      const imageNumber = getRandomImageExcluding(excluded);
+      const padded = String(imageNumber).padStart(2, "0");
+
+      tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
       grid.appendChild(tile);
+
+      if (!placedImages[row]) {
+        placedImages[row] = [];
+      }
+      placedImages[row][col] = imageNumber;
     }
   }
+}
+</script>
 
   document.addEventListener("DOMContentLoaded", function() {
     setRandomStickers();
