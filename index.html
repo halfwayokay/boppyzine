@@ -243,30 +243,41 @@ filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.85));
   overflow: visible;
 }
 
-/* cloud bumps */
-.contact-banner::before,
+.contact-banner {
+  position: relative;
+  margin-top: 2rem;
+  padding: 2.5rem 1.5rem;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 0; /* important */
+  z-index: 2;
+}
+
+/* top scallops */
+.contact-banner::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background:
+    radial-gradient(circle at 40px 40px, #000 40px, transparent 41px) repeat-x;
+  background-size: 80px 80px;
+}
+
+/* bottom scallops */
 .contact-banner::after {
   content: "";
   position: absolute;
-  background: #000;
-  border-radius: 50%;
-  z-index: -1;
-}
-
-/* left puff */
-.contact-banner::before {
-  width: 120px;
-  height: 120px;
-  top: -40px;
-  left: -40px;
-}
-
-/* right puff */
-.contact-banner::after {
-  width: 140px;
-  height: 140px;
-  bottom: -50px;
-  right: -50px;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background:
+    radial-gradient(circle at 40px 40px, #000 40px, transparent 41px) repeat-x;
+  background-size: 80px 80px;
 }
 
     .contact-title {
