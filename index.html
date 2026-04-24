@@ -232,54 +232,41 @@
 
     .contact-banner {
       position: relative;
-      margin: 4rem 0;
-      padding: 2.75rem 1rem;
+      margin: clamp(3rem, 6vw, 5rem) 0;
+      padding: clamp(2rem, 5vw, 3rem) 1rem;
       background: #000;
       color: #fff;
       text-align: center;
       z-index: 2;
       overflow: visible;
-      border-radius: 34px;
-    }
-
-    .contact-banner::before,
-    .contact-banner::after {
-      content: "";
-      position: absolute;
-      left: 35px;
-      right: 35px;
-      height: 70px;
-      background: radial-gradient(circle, #000 34px, transparent 35px) repeat-x;
-      background-size: 70px 70px;
-      z-index: -1;
-      pointer-events: none;
+      border-radius: 80px;
     }
 
     .contact-banner::before {
-      top: -35px;
-    }
-
-    .contact-banner::after {
-      bottom: -35px;
-    }
-
-    .cloud-side {
+      content: "";
       position: absolute;
-      top: 35px;
-      bottom: 35px;
-      width: 70px;
-      background: radial-gradient(circle, #000 34px, transparent 35px) repeat-y;
-      background-size: 70px 70px;
+      inset: -38px -28px;
+      background:
+        radial-gradient(circle at 8% 28%, #000 0 44px, transparent 45px),
+        radial-gradient(circle at 18% 12%, #000 0 52px, transparent 53px),
+        radial-gradient(circle at 32% 8%, #000 0 48px, transparent 49px),
+        radial-gradient(circle at 48% 10%, #000 0 56px, transparent 57px),
+        radial-gradient(circle at 65% 8%, #000 0 50px, transparent 51px),
+        radial-gradient(circle at 82% 14%, #000 0 54px, transparent 55px),
+        radial-gradient(circle at 94% 30%, #000 0 46px, transparent 47px),
+        radial-gradient(circle at 12% 78%, #000 0 50px, transparent 51px),
+        radial-gradient(circle at 28% 92%, #000 0 46px, transparent 47px),
+        radial-gradient(circle at 46% 94%, #000 0 54px, transparent 55px),
+        radial-gradient(circle at 66% 92%, #000 0 48px, transparent 49px),
+        radial-gradient(circle at 84% 82%, #000 0 52px, transparent 53px),
+        #000;
+      border-radius: 90px;
       z-index: -1;
       pointer-events: none;
     }
 
-    .cloud-left {
-      left: -35px;
-    }
-
-    .cloud-right {
-      right: -35px;
+    .cloud-side {
+      display: none;
     }
 
     .contact-title {
@@ -287,6 +274,8 @@
       font-weight: 300;
       margin: 0 0 0.75rem;
       letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
     }
 
     .contact-links {
@@ -296,6 +285,8 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
     }
 
     .contact-banner a {
@@ -312,6 +303,8 @@
       margin-top: 0.5rem;
       font-size: 0.9rem;
       opacity: 0.85;
+      position: relative;
+      z-index: 1;
     }
 
     footer {
@@ -366,39 +359,24 @@
 
       .contact-banner {
         margin: 3rem 0;
-      }
-
-      .contact-banner::before,
-      .contact-banner::after {
-        left: 28px;
-        right: 28px;
-        height: 56px;
-        background: radial-gradient(circle, #000 27px, transparent 28px) repeat-x;
-        background-size: 56px 56px;
+        padding: 2rem 1rem;
+        border-radius: 55px;
       }
 
       .contact-banner::before {
-        top: -28px;
-      }
-
-      .contact-banner::after {
-        bottom: -28px;
-      }
-
-      .cloud-side {
-        top: 28px;
-        bottom: 28px;
-        width: 56px;
-        background: radial-gradient(circle, #000 27px, transparent 28px) repeat-y;
-        background-size: 56px 56px;
-      }
-
-      .cloud-left {
-        left: -28px;
-      }
-
-      .cloud-right {
-        right: -28px;
+        inset: -26px -16px;
+        border-radius: 65px;
+        background:
+          radial-gradient(circle at 10% 25%, #000 0 30px, transparent 31px),
+          radial-gradient(circle at 25% 10%, #000 0 34px, transparent 35px),
+          radial-gradient(circle at 45% 8%, #000 0 36px, transparent 37px),
+          radial-gradient(circle at 67% 10%, #000 0 34px, transparent 35px),
+          radial-gradient(circle at 90% 26%, #000 0 30px, transparent 31px),
+          radial-gradient(circle at 18% 84%, #000 0 32px, transparent 33px),
+          radial-gradient(circle at 42% 94%, #000 0 34px, transparent 35px),
+          radial-gradient(circle at 68% 90%, #000 0 32px, transparent 33px),
+          radial-gradient(circle at 88% 78%, #000 0 30px, transparent 31px),
+          #000;
       }
     }
   </style>
