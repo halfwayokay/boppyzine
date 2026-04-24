@@ -233,51 +233,38 @@ filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.85));
 
 .contact-banner {
   position: relative;
-  margin-top: 2rem;
-  padding: 2.5rem 1.5rem;
+  margin: 3rem 0;
+  padding: 2rem 1.5rem;
   background: #000;
   color: #fff;
   text-align: center;
-  border-radius: 60px;
+  border-radius: 0;
   z-index: 2;
-  overflow: visible;
+  overflow: hidden;
 }
 
-.contact-banner {
-  position: relative;
-  margin-top: 2rem;
-  padding: 2.5rem 1.5rem;
-  background: #000;
-  color: #fff;
-  text-align: center;
-  border-radius: 0; /* important */
-  z-index: 2;
-}
-
-/* top scallops */
-.contact-banner::before {
-  content: "";
-  position: absolute;
-  top: -40px;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  background:
-    radial-gradient(circle at 40px 40px, #000 40px, transparent 41px) repeat-x;
-  background-size: 80px 80px;
-}
-
-/* bottom scallops */
+/* cloud scallops (top + bottom) */
+.contact-banner::before,
 .contact-banner::after {
   content: "";
   position: absolute;
-  bottom: -40px;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 44px;
   background:
-    radial-gradient(circle at 40px 40px, #000 40px, transparent 41px) repeat-x;
-  background-size: 80px 80px;
+    radial-gradient(circle at 22px 22px, #000 22px, transparent 23px) repeat-x;
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+
+/* top bumps */
+.contact-banner::before {
+  top: -1px;
+}
+
+/* bottom bumps */
+.contact-banner::after {
+  bottom: -1px;
 }
 
     .contact-title {
