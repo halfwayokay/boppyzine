@@ -12,120 +12,615 @@
   <meta property="og:url" content="https://boppyzine.com">
   <meta property="og:type" content="website">
 
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BOPPY | A Cool Art Zine">
+  <meta name="twitter:description" content="Pretty tame, never lame!">
+  <meta name="twitter:image" content="https://boppyzine.com/preview.png">
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+    :root {
+      --bg: #ffffff;
+      --card-bg: #ffffff;
+      --text: #222222;
+      --muted: #555555;
+      --border: #dddddd;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       max-width: 1000px;
       margin: 0 auto;
-      padding: 1.5rem;
-      background: #fff;
+      padding: 1.5rem 1rem 3rem;
+      line-height: 1.6;
+      background: transparent;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-wrapper {
+      position: relative;
+      overflow: visible;
+    }
+
+    .background-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      display: grid;
+      overflow: hidden;
+      pointer-events: none;
+      background: #ffffff;
+      justify-content: center;
+      opacity: 0.45;
+    }
+
+    .background-tile {
+      width: 104px;
+      height: 158px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header,
+    .top-card,
+    main,
+    footer {
+      position: relative;
+      z-index: 2;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .header-image {
+      max-width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin: 0 auto 2.5rem;
+      cursor: pointer;
+    }
+
+    .top-card {
+      background: #ffffff;
+      border: 4px solid #000000;
+      border-radius: 34px;
+      padding: 1rem;
+      text-align: center;
+      margin: 1.5rem 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .top-card p {
+      margin: 0.3rem 0;
+    }
+
+    .top-card a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .highlight {
+      background: #000000;
+      color: #ffffff;
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
     }
 
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 1.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .product-card {
-      border: 4px solid #000;
+      background: var(--card-bg);
+      overflow: visible;
+      border: 4px solid #000000;
       border-radius: 34px;
       padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      position: relative;
+      z-index: 2;
+    }
+
+    .sticker-right-corner {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 125px;
+      height: auto;
+      transform-origin: center;
+      image-rendering: auto;
+      backface-visibility: hidden;
+      transform: rotate(12deg);
+      pointer-events: none;
+      z-index: 10;
+      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.85));
+    }
+
+    .sticker-right-middle {
+      position: absolute;
+      top: 360px;
+      right: -40px;
+      width: 125px;
+      height: auto;
+      transform-origin: center;
+      image-rendering: auto;
+      backface-visibility: hidden;
+      transform: rotate(12deg);
+      pointer-events: none;
+      z-index: 10;
+      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.85));
+    }
+
+    .sticker-left-corner {
+      position: absolute;
+      top: -40px;
+      left: -40px;
+      width: 125px;
+      height: auto;
+      transform-origin: center;
+      image-rendering: auto;
+      backface-visibility: hidden;
+      transform: rotate(-12deg);
+      pointer-events: none;
+      z-index: 10;
+      filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.85));
     }
 
     .product-image {
       width: 100%;
       border-radius: 18px;
+      margin-bottom: 0.75rem;
+      display: block;
+      cursor: zoom-in;
+    }
+
+    .product-title {
+      margin: 0 0 0.25rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .product-desc {
+      margin: 0 0 0.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      flex-grow: 1;
+    }
+
+    .buy-form {
+      margin-top: auto;
     }
 
     .buy-button {
-      width: 100%;
-      border-radius: 999px;
-      padding: 0.6rem;
-      background: #000;
-      color: #fff;
       border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: #000000;
+      color: #ffffff;
       font-weight: 600;
+      width: 100%;
+    }
+
+    .buy-button:hover {
+      background: #b796c6;
     }
 
     .buy-button:active {
       transform: scale(0.97);
     }
 
-    /* ✅ CLEAN CONTACT BANNER */
     .contact-banner {
-      margin-top: 3rem;
+      margin-top: 2rem;
       padding: 2rem 1rem;
-      background: #000;
-      color: #fff;
+      background: #000000;
+      color: #ffffff;
       text-align: center;
+      width: 100%;
       border-radius: 34px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact-title {
+      font-size: 1rem;
+      font-weight: 300;
+      margin: 0 0 0.75rem;
+      letter-spacing: 0.5px;
     }
 
     .contact-links {
+      font-size: 1.1rem;
+      margin: 0 0 0.75rem;
       display: flex;
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      margin: 0.75rem 0;
     }
 
     .contact-banner a {
-      color: #fff;
+      color: #ffffff;
+      text-decoration: underline;
       font-weight: 600;
     }
 
+    .contact-banner a:hover {
+      color: #b796c6;
+    }
+
+    .contact-tagline {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
     footer {
-      margin-top: 2rem;
-      text-align: center;
+      margin-top: 3rem;
       font-size: 0.8rem;
+      text-align: center;
+      color: var(--muted);
+      position: relative;
+      z-index: 2;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .lightbox-image {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2.5rem;
+      line-height: 1;
+      color: #ffffff;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    @media (max-width: 640px) {
+      .background-grid {
+        opacity: 0.35;
+      }
+
+      .sticker-right-middle {
+        top: 320px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <div id="background-grid" class="background-grid"></div>
 
-  <h1>BOPPY</h1>
+  <div class="site-wrapper">
+    <header>
+      <a href="https://boppyzine.com" title="Refresh BOPPY">
+        <img src="boppy_header.png" alt="Header artwork" class="header-image" />
+      </a>
+    </header>
 
-  <div class="product-grid">
+    <main>
+      <section>
+        <div class="product-grid">
+          <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-left-corner">
+            <img src="boppy-sizes.png" alt="Sizes" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Sizes”</h2>
+            <p class="product-desc">
+              Sizes. What are they? FIND OUT!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free U.S. shipping!</strong>
+            </p>
 
-    <div class="product-card">
-      <img src="boppy-sizes.png" class="product-image">
-      <h3>BOPPY “Sizes”</h3>
-      <p>Includes a random sticker sheet!</p>
-      <button class="buy-button">Buy – $5</button>
-    </div>
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="RD6BXSC7EASTU" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Sizes – $5</button>
+            </form>
+          </article>
 
-    <div class="product-card">
-      <img src="boppy-grocery-store.png" class="product-image">
-      <h3>BOPPY “Grocery Store”</h3>
-      <p>Includes a random sticker sheet!</p>
-      <button class="buy-button">Buy – $5</button>
-    </div>
+          <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-right-corner">
+            <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Grocery Store”</h2>
+            <p class="product-desc">
+              A grocery store experience that fits in your pocket!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free U.S. shipping!</strong>
+            </p>
 
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="S4ASQF3QPM8YA" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Grocery Store – $5</button>
+            </form>
+          </article>
+
+          <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-right-middle">
+            <img src="boppy-private-time.png" alt="Private Time" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Private Time”</h2>
+            <p class="product-desc">
+              Skilp the chill pills. Take this instead!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free U.S. shipping!</strong>
+            </p>
+
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="75UR2H4HJHZHA" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Private Time – $5</button>
+            </form>
+          </article>
+        </div>
+
+        <div class="top-card">
+          <p>BOPPY is a single-sheet, single-color, 8-page zine. Pretty tame, never lame!</p>
+          <p>made by <a href="https://linktr.ee/halfwayokay" target="_blank">Bingo!</a></p>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-right-middle">
+            <img src="sticker-01.png" alt="" class="sticker-left-corner">
+            <img src="boppy-beverages.png" alt="Beverages" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Beverages”</h2>
+            <p class="product-desc">
+              Finally, a beverage you can read!<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free U.S. shipping!</strong>
+            </p>
+
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="GZTMPGJ2AMA3E" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Beverages – $5</button>
+            </form>
+          </article>
+
+          <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-right-middle">
+            <img src="boppy-yearbook.png" alt="Yearbook" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY “Yearbook”</h2>
+            <p class="product-desc">
+              A totally normal yearbook.<br><br>
+              Includes a random sticker sheet!<br><br>
+              <strong>Free U.S. shipping!</strong>
+            </p>
+
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="3NY4LDA7974FS" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Yearbook – $5</button>
+            </form>
+          </article>
+
+          <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-right-corner">
+            <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
+            <p class="product-desc">
+              A complete set of Official BOPPY Sticker Sheets Vol 1.<br><br>
+              Perfect for the BOPPY Sticker Zone!<br><br>
+              <strong>Free U.S. shipping!</strong>
+            </p>
+
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="USYY4ZRYWHQ38" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy Sticker Sheet Set Vol 1 – $7</button>
+            </form>
+          </article>
+
+          <article class="product-card">
+            <img src="sticker-01.png" alt="" class="sticker-left-corner">
+            <img src="sticker-01.png" alt="" class="sticker-right-middle">
+            <img src="boppy-all-of-it-01.png" alt="BOPPY: ALL OF IT" class="product-image" onclick="openLightbox(this.src)">
+            <h2 class="product-title">BOPPY: ALL OF IT</h2>
+            <p class="product-desc">
+              One of every BOPPY and Official BOPPY Sticker Sheet.<br><br>
+              Good value!<br><br>
+              <strong>Free U.S. shipping!</strong>
+            </p>
+
+            <form class="buy-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick" />
+              <input type="hidden" name="hosted_button_id" value="VW4XNRAXXCBZW" />
+              <input type="hidden" name="currency_code" value="USD" />
+              <button type="submit" class="buy-button">Buy ALL OF IT – $24</button>
+            </form>
+          </article>
+        </div>
+
+        <div class="contact-banner">
+          <p class="contact-title">Keep in touch!</p>
+          <p class="contact-links">
+            <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
+            <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
+          </p>
+          <p class="contact-tagline">🖤 Please tag us! 🖤</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        <span class="highlight">
+          &copy; <span id="year"></span> Hi, hello! Thanks for being here!
+        </span>
+      </p>
+    </footer>
   </div>
 
-  <!-- ✅ CONTACT -->
-  <div class="contact-banner">
-    <p>Keep in touch!</p>
-
-    <div class="contact-links">
-      <span>💌 <a href="mailto:boppyzine@gmail.com">boppyzine@gmail.com</a></span>
-      <span>📸 <a href="https://www.instagram.com/boppyzine" target="_blank">@boppyzine</a></span>
-    </div>
-
-    <p>🖤 Please tag us! 🖤</p>
+  <div id="lightbox" class="lightbox">
+    <span class="lightbox-close" aria-label="Close image">&times;</span>
+    <img class="lightbox-image" id="lightbox-img" src="" alt="">
   </div>
-
-  <footer>
-    © <span id="year"></span> Thanks for being here!
-  </footer>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 
+    function setRandomStickers() {
+      const stickers = document.querySelectorAll(
+        ".sticker-right-corner, .sticker-left-corner, .sticker-right-middle"
+      );
+
+      const stickerPool = [];
+      for (let i = 1; i <= 20; i++) {
+        stickerPool.push(`sticker-${String(i).padStart(2, "0")}.png`);
+      }
+
+      for (let i = stickerPool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [stickerPool[i], stickerPool[j]] = [stickerPool[j], stickerPool[i]];
+      }
+
+      stickers.forEach((sticker, index) => {
+        sticker.src = stickerPool[index];
+
+        let rotation = 0;
+
+        if (sticker.classList.contains("sticker-left-corner")) {
+          rotation = -8 - Math.random() * 10;
+        } else {
+          rotation = 8 + Math.random() * 10;
+        }
+
+        sticker.style.transform = `rotate(${rotation}deg)`;
+        sticker.style.zIndex = "10";
+      });
+    }
+
+    function openLightbox(src) {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightbox-img");
+      img.src = src;
+      lightbox.style.display = "flex";
+    }
+
+    document.querySelector(".lightbox-close").onclick = function() {
+      document.getElementById("lightbox").style.display = "none";
+    };
+
+    document.getElementById("lightbox").onclick = function(e) {
+      if (e.target.id === "lightbox") {
+        this.style.display = "none";
+      }
+    };
+
+    function buildBackgroundGrid() {
+      const grid = document.getElementById("background-grid");
+      const tileWidth = 104;
+      const tileHeight = 158;
+      const totalImages = 41;
+      const extension = "jpg";
+
+      const cols = Math.ceil(window.innerWidth / tileWidth);
+      const rows = Math.ceil(window.innerHeight / tileHeight);
+
+      grid.innerHTML = "";
+      grid.style.gridTemplateColumns = `repeat(${cols}, ${tileWidth}px)`;
+      grid.style.gridTemplateRows = `repeat(${rows}, ${tileHeight}px)`;
+
+      const placedImages = [];
+
+      function getRandomImageExcluding(excluded) {
+        const options = [];
+
+        for (let i = 1; i <= totalImages; i++) {
+          if (!excluded.includes(i)) {
+            options.push(i);
+          }
+        }
+
+        const randomIndex = Math.floor(Math.random() * options.length);
+        return options[randomIndex];
+      }
+
+      for (let row = 0; row < rows; row++) {
+        placedImages[row] = [];
+
+        for (let col = 0; col < cols; col++) {
+          const tile = document.createElement("div");
+          tile.className = "background-tile";
+
+          const excluded = [];
+
+          if (col > 0) {
+            excluded.push(placedImages[row][col - 1]);
+          }
+
+          if (row > 0) {
+            excluded.push(placedImages[row - 1][col]);
+          }
+
+          const imageNumber = getRandomImageExcluding(excluded);
+          const padded = String(imageNumber).padStart(2, "0");
+
+          tile.style.backgroundImage = `url('page-${padded}.${extension}')`;
+          grid.appendChild(tile);
+
+          placedImages[row][col] = imageNumber;
+        }
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      setRandomStickers();
+      buildBackgroundGrid();
+    });
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        buildBackgroundGrid();
+      }, 150);
+    });
+  </script>
 </body>
 </html>
