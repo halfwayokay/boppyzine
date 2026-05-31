@@ -297,22 +297,11 @@
       padding: 1rem;
     }
 
-    .lightbox-inner {
-      position: relative;
-      width: min(100%, 900px);
-      height: min(100%, 90vh);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .lightbox-image {
       max-width: 90%;
-      max-height: 82vh;
+      max-height: 90%;
       border-radius: 10px;
       display: block;
-      user-select: none;
-      touch-action: pan-y;
     }
 
     .lightbox-close {
@@ -324,64 +313,6 @@
       color: #ffffff;
       cursor: pointer;
       user-select: none;
-      z-index: 10001;
-    }
-
-    .lightbox-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: #ffffff;
-      color: #000000;
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      font-size: 2rem;
-      line-height: 1;
-      cursor: pointer;
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox-arrow:hover {
-      background: #b796c6;
-    }
-
-    .lightbox-prev {
-      left: 0;
-    }
-
-    .lightbox-next {
-      right: 0;
-    }
-
-    .lightbox-pips {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-    }
-
-    .lightbox-pip {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      border: 1px solid #ffffff;
-      background: transparent;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    .lightbox-pip.active {
-      background: #ffffff;
     }
 
     @media (max-width: 640px) {
@@ -411,7 +342,7 @@
         <div class="product-grid">
           <article class="product-card">
             <img src="sticker-01.png" alt="" class="sticker-left-corner">
-            <img src="boppy-sizes-01.png" alt="Sizes" class="product-image" onclick="openLightboxGallery(this)" data-images="boppy-sizes-01.png,boppy-sizes-02.png,boppy-sizes-03.png,boppy-sizes-04.png">
+            <img src="boppy-sizes_01.png" alt="Sizes" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">BOPPY “Sizes”</h2>
             <p class="product-desc">
               Sizes. What are they? FIND OUT!<br><br>
@@ -429,7 +360,7 @@
 
           <article class="product-card">
             <img src="sticker-01.png" alt="" class="sticker-right-corner">
-            <img src="boppy-grocery-store-01.png" alt="Grocery Store" class="product-image" onclick="openLightboxGallery(this)" data-images="boppy-grocery-store-01.png,boppy-grocery-store-02.png,boppy-grocery-store-03.png,boppy-grocery-store-04.png">
+            <img src="boppy-grocery-store.png" alt="Grocery Store" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">BOPPY “Grocery Store”</h2>
             <p class="product-desc">
               A grocery store experience that fits in your pocket!<br><br>
@@ -447,7 +378,7 @@
 
           <article class="product-card">
             <img src="sticker-01.png" alt="" class="sticker-right-middle">
-            <img src="boppy-private-time-01.png" alt="Private Time" class="product-image" onclick="openLightboxGallery(this)" data-images="boppy-private-time-01.png,boppy-private-time-02.png,boppy-private-time-03.png,boppy-private-time-04.png">
+            <img src="boppy-private-time.png" alt="Private Time" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">BOPPY “Private Time”</h2>
             <p class="product-desc">
               Skilp the chill pills. Take this instead!<br><br>
@@ -473,7 +404,7 @@
           <article class="product-card">
             <img src="sticker-01.png" alt="" class="sticker-right-middle">
             <img src="sticker-01.png" alt="" class="sticker-left-corner">
-            <img src="boppy-beverages-01.png" alt="Beverages" class="product-image" onclick="openLightboxGallery(this)" data-images="boppy-beverages-01.png,boppy-beverages-02.png,boppy-beverages-03.png,boppy-beverages-04.png">
+            <img src="boppy-beverages.png" alt="Beverages" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">BOPPY “Beverages”</h2>
             <p class="product-desc">
               Finally, a beverage you can read!<br><br>
@@ -491,7 +422,7 @@
 
           <article class="product-card">
             <img src="sticker-01.png" alt="" class="sticker-right-middle">
-            <img src="boppy-yearbook-01.png" alt="Yearbook" class="product-image" onclick="openLightboxGallery(this)" data-images="boppy-yearbook-01.png,boppy-yearbook-02.png,boppy-yearbook-03.png,boppy-yearbook-04.png">
+            <img src="boppy-yearbook.png" alt="Yearbook" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">BOPPY “Yearbook”</h2>
             <p class="product-desc">
               A totally normal yearbook.<br><br>
@@ -509,7 +440,7 @@
 
           <article class="product-card">
             <img src="sticker-01.png" alt="" class="sticker-right-corner">
-            <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" onclick="openLightboxGallery(this)" data-images="boppy-sticker-sheet-vol-1.png">
+            <img src="boppy-sticker-sheet-vol-1.png" alt="Sticker Sheet Set Vol 1" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">Sticker Sheet Set Vol 1</h2>
             <p class="product-desc">
               A complete set of Official BOPPY Sticker Sheets Vol 1.<br><br>
@@ -528,7 +459,7 @@
           <article class="product-card">
             <img src="sticker-01.png" alt="" class="sticker-left-corner">
             <img src="sticker-01.png" alt="" class="sticker-right-middle">
-            <img src="boppy-all-of-it-01.png" alt="BOPPY: ALL OF IT" class="product-image" onclick="openLightboxGallery(this)" data-images="boppy-all-of-it-01.png">
+            <img src="boppy-all-of-it-01.png" alt="BOPPY: ALL OF IT" class="product-image" onclick="openLightbox(this.src)">
             <h2 class="product-title">BOPPY: ALL OF IT</h2>
             <p class="product-desc">
               One of every BOPPY and Official BOPPY Sticker Sheet.<br><br>
@@ -567,12 +498,7 @@
 
   <div id="lightbox" class="lightbox">
     <span class="lightbox-close" aria-label="Close image">&times;</span>
-    <div class="lightbox-inner">
-      <button class="lightbox-arrow lightbox-prev" type="button" aria-label="Previous image">‹</button>
-      <img class="lightbox-image" id="lightbox-img" src="" alt="">
-      <button class="lightbox-arrow lightbox-next" type="button" aria-label="Next image">›</button>
-      <div class="lightbox-pips" id="lightbox-pips"></div>
-    </div>
+    <img class="lightbox-image" id="lightbox-img" src="" alt="">
   </div>
 
   <script>
@@ -609,68 +535,15 @@
       });
     }
 
-    let lightboxImages = [];
-    let lightboxIndex = 0;
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    function openLightboxGallery(imageElement) {
-      const imageList = imageElement.dataset.images || imageElement.src;
-      lightboxImages = imageList.split(",").map(item => item.trim()).filter(Boolean);
-      lightboxIndex = 0;
-      showLightboxImage();
-      document.getElementById("lightbox").style.display = "flex";
-    }
-
-    function showLightboxImage() {
+    function openLightbox(src) {
+      const lightbox = document.getElementById("lightbox");
       const img = document.getElementById("lightbox-img");
-      const pips = document.getElementById("lightbox-pips");
-      const prev = document.querySelector(".lightbox-prev");
-      const next = document.querySelector(".lightbox-next");
-
-      img.src = lightboxImages[lightboxIndex];
-
-      pips.innerHTML = "";
-      lightboxImages.forEach((_, index) => {
-        const pip = document.createElement("button");
-        pip.type = "button";
-        pip.className = "lightbox-pip";
-        if (index === lightboxIndex) {
-          pip.classList.add("active");
-        }
-        pip.setAttribute("aria-label", `Go to image ${index + 1}`);
-        pip.onclick = function(event) {
-          event.stopPropagation();
-          lightboxIndex = index;
-          showLightboxImage();
-        };
-        pips.appendChild(pip);
-      });
-
-      const hasMultipleImages = lightboxImages.length > 1;
-      prev.style.display = hasMultipleImages ? "flex" : "none";
-      next.style.display = hasMultipleImages ? "flex" : "none";
-      pips.style.display = hasMultipleImages ? "flex" : "none";
-    }
-
-    function changeLightboxImage(direction) {
-      if (lightboxImages.length <= 1) return;
-      lightboxIndex = (lightboxIndex + direction + lightboxImages.length) % lightboxImages.length;
-      showLightboxImage();
+      img.src = src;
+      lightbox.style.display = "flex";
     }
 
     document.querySelector(".lightbox-close").onclick = function() {
       document.getElementById("lightbox").style.display = "none";
-    };
-
-    document.querySelector(".lightbox-prev").onclick = function(event) {
-      event.stopPropagation();
-      changeLightboxImage(-1);
-    };
-
-    document.querySelector(".lightbox-next").onclick = function(event) {
-      event.stopPropagation();
-      changeLightboxImage(1);
     };
 
     document.getElementById("lightbox").onclick = function(e) {
@@ -679,41 +552,7 @@
       }
     };
 
-    document.getElementById("lightbox-img").addEventListener("touchstart", function(e) {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    document.getElementById("lightbox-img").addEventListener("touchend", function(e) {
-      touchEndX = e.changedTouches[0].screenX;
-      const swipeDistance = touchEndX - touchStartX;
-
-      if (Math.abs(swipeDistance) > 50) {
-        if (swipeDistance < 0) {
-          changeLightboxImage(1);
-        } else {
-          changeLightboxImage(-1);
-        }
-      }
-    }, { passive: true });
-
-    document.addEventListener("keydown", function(e) {
-      const lightbox = document.getElementById("lightbox");
-      if (lightbox.style.display !== "flex") return;
-
-      if (e.key === "Escape") {
-        lightbox.style.display = "none";
-      }
-
-      if (e.key === "ArrowRight") {
-        changeLightboxImage(1);
-      }
-
-      if (e.key === "ArrowLeft") {
-        changeLightboxImage(-1);
-      }
-    });
-
-    function buildBackgroundGrid    function buildBackgroundGrid() {
+    function buildBackgroundGrid() {
       const grid = document.getElementById("background-grid");
       const tileWidth = 104;
       const tileHeight = 158;
