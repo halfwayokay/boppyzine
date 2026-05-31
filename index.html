@@ -314,6 +314,67 @@
       cursor: pointer;
       user-select: none;
     }
+    .lightbox-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: #ffffff;
+  color: #000000;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.lightbox-prev {
+  left: 20px;
+}
+
+.lightbox-next {
+  right: 20px;
+}
+
+.lightbox-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.lightbox-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid #ffffff;
+  background: transparent;
+}
+
+.lightbox-dot.active {
+  background: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .lightbox-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 1.6rem;
+  }
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+  .lightbox-next {
+    right: 10px;
+  }
+
 
     @media (max-width: 640px) {
       .background-grid {
@@ -503,9 +564,16 @@
   </div>
 
   <div id="lightbox" class="lightbox">
-    <span class="lightbox-close" aria-label="Close image">&times;</span>
-    <img class="lightbox-image" id="lightbox-img" src="" alt="">
-  </div>
+  <span class="lightbox-close" aria-label="Close image">&times;</span>
+
+  <button class="lightbox-arrow lightbox-prev" type="button">‹</button>
+
+  <img class="lightbox-image" id="lightbox-img" src="" alt="">
+
+  <button class="lightbox-arrow lightbox-next" type="button">›</button>
+
+  <div id="lightbox-dots" class="lightbox-dots"></div>
+</div>
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -541,22 +609,95 @@
       });
     }
 
-    function openLightbox(src) {
-      const lightbox = document.getElementById("lightbox");
-      const img = document.getElementById("lightbox-img");
-      img.src = src;
-      lightbox.style.display = "flex";
+   let lightboxImages = [];
+let lightboxIndex = 0;
+let touchStartX = 0;
+
+function openLightboxGallery(el) {
+  const lightbox = document.getElementById("lightbox");
+
+  lightboxImages = el.dataset.images
+    ? el.dataset.images.split(",").map(item => item.trim())
+    : [el.src];
+
+  lightboxIndex = 0;
+  updateLightboxImage();
+  lightbox.style.display = "flex";
+}
+
+function updateLightboxImage() {
+  const img = document.getElementById("lightbox-img");
+  const dots = document.getElementById("lightbox-dots");
+
+  img.src = lightboxImages[lightboxIndex];
+
+  dots.innerHTML = "";
+
+  lightboxImages.forEach((_, index) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "lightbox-dot";
+    if (index === lightboxIndex) {
+      dot.classList.add("active");
     }
 
-    document.querySelector(".lightbox-close").onclick = function() {
-      document.getElementById("lightbox").style.display = "none";
+    dot.onclick = function(e) {
+      e.stopPropagation();
+      lightboxIndex = index;
+      updateLightboxImage();
     };
 
-    document.getElementById("lightbox").onclick = function(e) {
-      if (e.target.id === "lightbox") {
-        this.style.display = "none";
-      }
-    };
+    dots.appendChild(dot);
+  });
+}
+
+function showPreviousLightboxImage() {
+  lightboxIndex =
+    (lightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+  updateLightboxImage();
+}
+
+function showNextLightboxImage() {
+  lightboxIndex = (lightboxIndex + 1) % lightboxImages.length;
+  updateLightboxImage();
+}
+
+document.querySelector(".lightbox-close").onclick = function() {
+  document.getElementById("lightbox").style.display = "none";
+};
+
+document.querySelector(".lightbox-prev").onclick = function(e) {
+  e.stopPropagation();
+  showPreviousLightboxImage();
+};
+
+document.querySelector(".lightbox-next").onclick = function(e) {
+  e.stopPropagation();
+  showNextLightboxImage();
+};
+
+document.getElementById("lightbox").onclick = function(e) {
+  if (e.target.id === "lightbox") {
+    this.style.display = "none";
+  }
+};
+
+document.getElementById("lightbox").addEventListener("touchstart", function(e) {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.getElementById("lightbox").addEventListener("touchend", function(e) {
+  const touchEndX = e.changedTouches[0].screenX;
+  const difference = touchStartX - touchEndX;
+
+  if (Math.abs(difference) > 50) {
+    if (difference > 0) {
+      showNextLightboxImage();
+    } else {
+      showPreviousLightboxImage();
+    }
+  }
+});
 
     function buildBackgroundGrid() {
       const grid = document.getElementById("background-grid");
